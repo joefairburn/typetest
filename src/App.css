@@ -1,3 +1,29 @@
 .text-center {
   text-align: center;
 }
+
+.text-correct {
+	color: green;
+}
+
+.text-incorrect {
+	color: red
+}
+
+.text-highlight {
+	border: 2px solid grey;
+	border-radius: 2px;
+}
+
+.words { 
+	display: inline;
+	font-size: 32px;
+}
+
+.list {
+	margin-top: 50px;
+}
+
+.textInput {
+	margin-top: 20px;
+}

@@ -9,7 +9,8 @@ class App extends Component {
 		pointer: 0,
 		found: false
 	};
-
+	
+	//when text is input into textbox
 	textChangeHandler = (event) => {
 		this.setState({
 			textBox: event.target.value //set textbox to value entered in textbox, syncing textbox w/ state
@@ -43,8 +44,9 @@ class App extends Component {
   render() {
     return (
       <div className='text-center'>
-				<TextList text = {this.state.textToType} />
-				<input value = {this.state.textBox} onChange = {(event) => this.textChangeHandler(event)} />
+				<TextList text = {this.state.textToType} textLength = {this.state.textBox.length} 
+					found = {this.state.found} pointer = {this.state.pointer} />
+				<input className = 'textInput' value = {this.state.textBox} onChange = {(event) => this.textChangeHandler(event)} />
 				
       </div>
     );
