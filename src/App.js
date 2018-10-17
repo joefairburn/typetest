@@ -6,6 +6,7 @@ class App extends Component {
 	state = {
 		textBox: '',
 		textToType: ['this', 'is', 'a', 'test'],
+		correctText: [0, 0, 0, 0],
 		pointer: 0,
 		found: false,
 		currentlyCorrect: -1
@@ -50,7 +51,6 @@ class App extends Component {
 					found = {this.state.found} pointer = {this.state.pointer} 
 					currentlyCorrect = {this.state.currentlyCorrect} />
 				<input className = 'textInput' value = {this.state.textBox} onChange = {(event) => this.textChangeHandler(event)} />
-				
       </div>
     );
   }
