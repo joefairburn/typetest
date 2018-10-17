@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TextList = (props) => {
-	
+	let fontSize = '32px';
 	const currentWord = (index) => {
 		if (props.pointer === index) {
 			return true;
@@ -32,6 +32,18 @@ const TextList = (props) => {
 			return true;
 		}
 	}
+	console.log(props.totalLength);
+	if(props.totalLength < 100) {
+		fontSize = '42px';
+	} else if(props.totalLength < 120) {
+		fontSize = '32px';
+	} else {
+		fontSize = '24px';
+	}
+		
+		const listStyle = {
+			fontSize: fontSize
+	}
 	
 	const listItems = props.text.map((word, index) =>
 		<span className='words' key={index}>
@@ -40,7 +52,7 @@ const TextList = (props) => {
 		</span>);
 	
 	return(
-		<p className="list">
+		<p className="list" style={listStyle}>
 			{listItems}
 		</p>
 		);
