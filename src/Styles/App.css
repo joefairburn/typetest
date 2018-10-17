@@ -7,19 +7,23 @@
   top:40%;
   left:50%;
   padding:15px;
-  -ms-transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translate(-50%,-50%);
   transform: translate(-50%,-50%);
 }
 
 
 .words {
+	white-space: pre-wrap;
+	overflow: hidden;
 }
 
 .list {
-	font-size: 48px;
+	font-size: 32px;
 	border: 0px none #bdc3c7;
 	border-radius: 5px;
+	white-space: pre-wrap;
+	width: 920px;
+	overflow: hidden;
+	height: 100px;
 }
 
 .text-center {
@@ -44,11 +48,11 @@
 }
 
 .text-current {
+	border-radius: 5px;
 	background-color: #95a5a6;
 }
 
 .textInput {
-	margin-top: 40px;
 	padding: 0 10px;
 	height: 50px;
 	width: 400px;
@@ -63,5 +67,10 @@
 
 .textInput:focus {
 	outline: none;
-	border-color: #bdc3c7;
+	border-color: #2980b9;
+}
+
+.text-wpm {
+	margin-top: 32px;
+	font-size: 32px;
 }

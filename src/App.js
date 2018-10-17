@@ -2,20 +2,41 @@ import React, { Component } from 'react';
 import './Styles/App.css';
 import TextList from './Components/TextList.js';
 import Navbar from './Components/Navbar.js';
+
+import WPM from './Components/WPM.js'
 class App extends Component {
-	x = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.".split(' ');
+	x = "Every great person is always being helped by everybody for their gift is to get good out of all things and all persons.".split(' ');
+	timer;
 	state = {
 		textBox: '',
 		textToType: this.x,
 		correctText: [0, 0, 0, 0],
 		pointer: 0,
 		found: false,
-		currentlyCorrect: -1
+		currentlyCorrect: -1,
+		currentWPM: 0
 	};
+	
+	tickSecond() {
+		let newTime = new Date();
+		newTime = newTime.getTime();
+		const seconds = (newTime - this.timer)/1000;
+		const minutes = seconds/60;
+		const WPM = Math.floor(this.state.pointer/minutes);
+		this.setState({currentWPM: WPM});
+	}
+	
+	componentDidMount() {
+		this.interval = setInterval(() => this.tickSecond(), 1000);
+	}
+	componentWillUnmount() {
+		clearInterval(this.interval);
+	}
+
 	
 	//when text is input into textbox
 	textChangeHandler = (event) => {
-		const pointer = this.state.pointer;
+		let pointer = this.state.pointer;
 		const word = this.state.textToType[pointer];
 		let textBox = event.target.value;
 		let found = word.indexOf(textBox);
@@ -25,11 +46,17 @@ class App extends Component {
 			currentlyCorrect: found
 		});
 		
+		if(textBox.length === 1 && pointer === 0) {
+			const currentTime = new Date();
+			this.timer = currentTime.getTime();
+		}
 		//when space + text previously found
 		if (textBox.split('')[word.length] === ' ' && this.state.found === true) {
+			pointer+=1;
 			this.setState({
-				pointer: pointer + 1, //increment counter
-				textBox: '' //reset text box
+				pointer: pointer, //increment counter
+				textBox: '', //reset text box
+				currentWPM: WPM
 			});
 		}
 		
@@ -55,6 +82,8 @@ class App extends Component {
 						found = {this.state.found} pointer = {this.state.pointer} 
 						currentlyCorrect = {this.state.currentlyCorrect} />
 					<input className = 'textInput' value = {this.state.textBox} onChange = {(event) => this.textChangeHandler(event)} autoFocus={true} maxLength = '22' />
+					
+					<WPM wordsPerMinute = {this.state.currentWPM} />
 				</div>
 			</div>
     );

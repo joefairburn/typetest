@@ -35,8 +35,8 @@ const TextList = (props) => {
 	
 	const listItems = props.text.map((word, index) =>
 		<span className='words' key={index}>
-			{(currentWord(index) && currentlyCorrect()) ? <span><span className='words text-current'><span className='text-correct'>{word.substring(0, props.textLength)}</span><span>{word.substring(props.textLength)}</span></span> </span>
-		: currentWord(index) && !currentlyCorrect() && lengthBiggerThanZero(props.textLength) ? <span className='text-incorrect'>{word} </span> : wasCorrect(index) ? <span className='text-correct'>{word} </span> : <span>{word} </span>}
+			{(currentWord(index) && currentlyCorrect()) ? <span><span className='text-current'><span className='text-correct'>{word.substring(0, props.textLength)}</span><span>{word.substring(props.textLength)}</span></span> </span>
+		: currentWord(index) && !currentlyCorrect() && lengthBiggerThanZero(props.textLength) ? <span><span className='text-incorrect'>{word}</span> </span> : wasCorrect(index) ? <span className='text-correct'>{word} </span> : <span>{word} </span>}
 		</span>);
 	
 	return(
