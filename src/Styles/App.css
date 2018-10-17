@@ -14,16 +14,12 @@
 
 
 .words {
-	white-space: pre-wrap;
-	overflow:auto;
 }
 
 .list {
 	font-size: 48px;
 	border: 0px none #bdc3c7;
 	border-radius: 5px;
-	white-space: pre-wrap;
-	overflow:auto;
 }
 
 .text-center {
