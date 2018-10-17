@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import './App.css';
+import './Styles/App.css';
 import TextList from './Components/TextList.js';
-
+import Navbar from './Components/Navbar.js';
 class App extends Component {
+	x = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.".split(' ');
 	state = {
 		textBox: '',
-		textToType: ['this', 'is', 'a', 'test'],
+		textToType: this.x,
 		correctText: [0, 0, 0, 0],
 		pointer: 0,
 		found: false,
@@ -15,11 +16,12 @@ class App extends Component {
 	//when text is input into textbox
 	textChangeHandler = (event) => {
 		const pointer = this.state.pointer;
-		const textBox = event.target.value;
 		const word = this.state.textToType[pointer];
+		let textBox = event.target.value;
 		let found = word.indexOf(textBox);
+		if(textBox === ' ') textBox = '';
 		this.setState({
-			textBox: event.target.value, //set textbox to value entered in textbox, syncing textbox w/ state
+			textBox: textBox, //set textbox to value entered in textbox, syncing textbox w/ state
 			currentlyCorrect: found
 		});
 		
@@ -46,12 +48,15 @@ class App extends Component {
 	
   render() {
     return (
-      <div className='text-center'>
-				<TextList text = {this.state.textToType} textLength = {this.state.textBox.length} 
-					found = {this.state.found} pointer = {this.state.pointer} 
-					currentlyCorrect = {this.state.currentlyCorrect} />
-				<input className = 'textInput' value = {this.state.textBox} onChange = {(event) => this.textChangeHandler(event)} />
-      </div>
+			<div>
+				<Navbar />
+				<div className='text-center content'>
+					<TextList text = {this.state.textToType} textLength = {this.state.textBox.length} 
+						found = {this.state.found} pointer = {this.state.pointer} 
+						currentlyCorrect = {this.state.currentlyCorrect} />
+					<input className = 'textInput' value = {this.state.textBox} onChange = {(event) => this.textChangeHandler(event)} autoFocus={true} maxLength = '22' />
+				</div>
+			</div>
     );
   }
 }

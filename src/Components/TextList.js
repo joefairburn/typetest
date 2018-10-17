@@ -12,11 +12,9 @@ const TextList = (props) => {
 	}
 	
 	const currentlyCorrect = () => {
-		console.log(props.currentlyCorrect);
-		if (props.currentlyCorrect !== -1) {
+		if (props.currentlyCorrect === 0 || props.textLength === 0) {
 			return true;
 		} else {
-			console.log(false);
 			return false;
 		}
 	}
@@ -29,17 +27,22 @@ const TextList = (props) => {
 		}
 	}
 	
+	const wasCorrect = (index) => {
+		if(index < props.pointer) {
+			return true;
+		}
+	}
+	
 	const listItems = props.text.map((word, index) =>
-		<p className='words' key={index}>
-			{currentWord(index) && currentlyCorrect() ? <p className='words'><span className='text-correct'>{word.substring(0, props.textLength)}</span><span>{word.substring(props.textLength, props.text.length)}</span></p>
-		: currentWord(index) && !currentlyCorrect() && lengthBiggerThanZero(props.textLength) ? <span className='text-incorrect'>{word}</span> : <span>{word}</span>}
-		&#160;
-		</p>);
+		<span className='words' key={index}>
+			{(currentWord(index) && currentlyCorrect()) ? <span><span className='words text-current'><span className='text-correct'>{word.substring(0, props.textLength)}</span><span>{word.substring(props.textLength, props.text.length)}</span></span>&nbsp;</span>
+		: currentWord(index) && !currentlyCorrect() && lengthBiggerThanZero(props.textLength) ? <span className='text-incorrect'>{word} </span> : wasCorrect(index) ? <span className='text-correct'>{word} </span> : <span>{word} </span>}
+		</span>);
 	
 	return(
-		<div className="list">
+		<p className="list">
 			{listItems}
-		</div>
+		</p>
 		);
 }
 
