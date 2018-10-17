@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './Styles/App.css';
 import TextList from './Components/TextList.js';
 import Navbar from './Components/Navbar.js';
-
 import WPM from './Components/WPM.js'
+import axios from 'axios';
+
 class App extends Component {
 	x = "Every great person is always being helped by everybody";
 	timer;
@@ -30,6 +31,10 @@ class App extends Component {
 	
 	componentDidMount() {
 		this.interval = setInterval(() => this.tickSecond(), 1000);
+		axios.get('https://talaikis.com/api/quotes/random/')
+		.then(response => {
+			console.log(response);
+		});
 	}
 	componentWillUnmount() {
 		clearInterval(this.interval);
