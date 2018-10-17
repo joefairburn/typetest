@@ -6,7 +6,7 @@ import WPM from './Components/WPM.js'
 import axios from 'axios';
 
 class App extends Component {
-	x = "Loading text dsa dsa dsd as";
+	x = "";
 	timer;
 	totalLetters = 0;
 	state = {
@@ -17,6 +17,7 @@ class App extends Component {
 		found: false,
 		currentlyCorrect: -1,
 		currentWPM: 0,
+		author: ''
 	};
 	
 	tickSecond() {
@@ -36,9 +37,12 @@ class App extends Component {
 			if(this.x.length > 120) {
 			this.getQuote();
 			} else {
-				this.setState({ textToType: this.x.split(' ') });
+				this.setState({ 
+					textToType: this.x.split(' '),
+					author: response.data.author
+				});
 			}
-			console.log(response.data.quote);
+			console.log(response.data.author);
 		});
 	}
 
@@ -97,7 +101,7 @@ class App extends Component {
 				<div className='text-center content'>
 					<TextList totalLength = {this.x.length} text = {this.state.textToType} textLength = {this.state.textBox.length} 
 						found = {this.state.found} pointer = {this.state.pointer} 
-						currentlyCorrect = {this.state.currentlyCorrect} />
+						currentlyCorrect = {this.state.currentlyCorrect} author = {this.state.author} />
 					<input className = 'textInput' value = {this.state.textBox} onChange = {(event) => this.textChangeHandler(event)} autoFocus={true} maxLength = '22' />
 					
 					<WPM wordsPerMinute = {this.state.currentWPM} textBoxLength = {this.state.textBox.length} />

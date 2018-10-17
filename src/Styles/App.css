@@ -24,6 +24,8 @@
 	width: 920px;
 	overflow: hidden;
 	height: 100px;
+	padding: 0;
+	margin: 0;
 }
 
 .text-center {
@@ -50,6 +52,15 @@
 .text-current {
 	border-radius: 5px;
 	background-color: #95a5a6;
+}
+
+.author {
+	float:right;
+	margin-right: 20px;
+}
+
+.quote {
+	margin-bottom: 50px;
 }
 
 .textInput {

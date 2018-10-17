@@ -33,10 +33,10 @@ const TextList = (props) => {
 		}
 	}
 	console.log(props.totalLength);
-	if(props.totalLength < 100) {
+	if(props.totalLength < 80) {
 		fontSize = '42px';
 	} else if(props.totalLength < 120) {
-		fontSize = '32px';
+		fontSize = '38px';
 	} else {
 		fontSize = '24px';
 	}
@@ -52,9 +52,12 @@ const TextList = (props) => {
 		</span>);
 	
 	return(
-		<p className="list" style={listStyle}>
-			{listItems}
-		</p>
+		<div className='quote'>
+			<p className="list" style={listStyle}>
+				{listItems}
+			</p>
+			<p className='author'>{props.author}</p><br />
+		</div>
 		);
 }
 
