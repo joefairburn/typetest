@@ -6,7 +6,7 @@ import WPM from './Components/WPM.js'
 import axios from 'axios';
 
 class App extends Component {
-	x = "Every great person is always being helped by everybody";
+	x = "Loading text dsa dsa dsd as";
 	timer;
 	totalLetters = 0;
 	state = {
@@ -28,13 +28,23 @@ class App extends Component {
 		const WPM = Math.floor(words/minutes); //use either words or pointer
 		this.setState({currentWPM: WPM});
 	}
-	
-	componentDidMount() {
-		this.interval = setInterval(() => this.tickSecond(), 1000);
+
+	getQuote = () => {
 		axios.get('https://talaikis.com/api/quotes/random/')
 		.then(response => {
-			console.log(response);
+			this.x = response.data.quote;
+			if(this.x.length > 120) {
+			this.getQuote();
+			} else {
+				this.setState({ textToType: this.x.split(' ') });
+			}
+			console.log(response.data.quote);
 		});
+	}
+
+	componentDidMount() {
+		this.interval = setInterval(() => this.tickSecond(), 1000);
+		this.getQuote();
 	}
 	componentWillUnmount() {
 		clearInterval(this.interval);
@@ -59,7 +69,7 @@ class App extends Component {
 		}
 		//when space + text previously found
 		if (textBox.split('')[word.length] === ' ' && this.state.found === true) {
-			this.totalLetters += word.length;
+			this.totalLetters += word.length + 1;// +1 for space
 			pointer+=1;
 			this.tickSecond();
 			this.setState({
