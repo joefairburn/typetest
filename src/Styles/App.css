@@ -26,6 +26,7 @@
 	height: 100px;
 	padding: 0;
 	margin: 0;
+	user-select: none;
 }
 
 .text-center {
@@ -61,6 +62,7 @@
 
 .quote {
 	margin-bottom: 50px;
+	margin-top: 75px;
 }
 
 .textInput {
@@ -84,4 +86,8 @@
 .text-wpm {
 	margin-top: 32px;
 	font-size: 32px;
+}
+
+::selection {
+	background: #3498db;
 }

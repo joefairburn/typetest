@@ -17,7 +17,8 @@ class App extends Component {
 		found: false,
 		currentlyCorrect: -1,
 		currentWPM: 0,
-		author: ''
+		author: '',
+		placeholder: 'Type the text above'
 	};
 	
 	tickSecond() {
@@ -70,6 +71,7 @@ class App extends Component {
 		if(textBox.length === 1 && pointer === 0) {
 			const currentTime = new Date();
 			this.timer = currentTime.getTime();
+			this.setState({placeholder: ''});
 		}
 		//when space + text previously found
 		if (textBox.split('')[word.length] === ' ' && this.state.found === true) {
@@ -102,7 +104,7 @@ class App extends Component {
 					<TextList totalLength = {this.x.length} text = {this.state.textToType} textLength = {this.state.textBox.length} 
 						found = {this.state.found} pointer = {this.state.pointer} 
 						currentlyCorrect = {this.state.currentlyCorrect} author = {this.state.author} />
-					<input className = 'textInput' value = {this.state.textBox} onChange = {(event) => this.textChangeHandler(event)} autoFocus={true} maxLength = '22' />
+					<input className = 'textInput' value = {this.state.textBox} onChange = {(event) => this.textChangeHandler(event)} autoFocus={true} maxLength = '22' placeholder={this.state.placeholder}/>
 					
 					<WPM wordsPerMinute = {this.state.currentWPM} textBoxLength = {this.state.textBox.length} />
 				</div>
