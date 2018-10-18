@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
+
 
 .content {
 	color: #2c3e50;
@@ -47,7 +48,7 @@
 
 .text-incorrect {
 	color: white;
-	background-color: #e74c3c;
+	background-color: #c0392b;
 }
 
 .text-current {
@@ -85,7 +86,15 @@
 
 .text-wpm {
 	margin-top: 32px;
-	font-size: 32px;
+	font-size: 48px;
+	font-family: Roboto;
+	font-weight: 400;
+	text-align: center;
+}
+
+.literal-wpm {
+	font-size: 24px;
+	font-weight: 300;
 }
 
 ::selection {

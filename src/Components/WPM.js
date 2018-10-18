@@ -11,7 +11,7 @@ const WPM = (props) => {
 
 	return (
 		<div className="text-wpm">
-			{checkStart() ? <div>{props.wordsPerMinute} WPM</div> : <div>0 WPM</div>}
+			{checkStart() ? <div>{props.wordsPerMinute} <span className='literal-wpm'>wpm</span></div> : <div>0 <span className='literal-wpm'>WPM</span></div>}
 		</div>
 	);
 }

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './Styles/App.css';
 import TextList from './Components/TextList.js';
 import Navbar from './Components/Navbar.js';
-import WPM from './Components/WPM.js'
+import WPM from './Components/WPM.js';
+import Reset from'./Components/Reset.js';
 import axios from 'axios';
 
 class App extends Component {
@@ -12,7 +13,6 @@ class App extends Component {
 	state = {
 		textBox: '',
 		textToType: this.x.split(' '),
-		correctText: [0, 0, 0, 0],
 		pointer: 0,
 		found: false,
 		currentlyCorrect: -1,
@@ -29,6 +29,27 @@ class App extends Component {
 		const minutes = seconds/60;
 		const WPM = Math.floor(words/minutes); //use either words or pointer
 		this.setState({currentWPM: WPM});
+	}
+
+	resetApp = () => {
+		this.getQuote();
+		document.getElementById("inputText").focus();
+		this.totalLetters = 0;
+		this.timer = 0;
+		this.setState({
+			pointer: 0,
+			currentWPM: 0,
+			textBox: '',
+			found: false,
+			placeholder: 'Type the text above',
+			author: '',
+			textToType: ['']
+			
+		});
+	}
+	
+	saveScore = () => {
+		
 	}
 
 	getQuote = () => {
@@ -67,10 +88,6 @@ class App extends Component {
 			textBox: textBox, //set textbox to value entered in textbox, syncing textbox w/ state
 			currentlyCorrect: found
 		});
-		if(pointer >= this.state.textToType.length -1) {
-			pointer = -1;
-			// DO SOMETHING HERE
-		}
 
 		if(textBox.length === 1 && pointer === 0) {
 			const currentTime = new Date();
@@ -86,6 +103,11 @@ class App extends Component {
 				pointer: pointer, //increment counter
 				textBox: '', //reset text box
 			});
+		}
+		if(pointer >= this.state.textToType.length) {
+			pointer = -1;
+			// DO SOMETHING HERE
+			this.resetApp();
 		}
 		//set found to true or false for next iteration
 		if (found === 0 && textBox.length === word.length) { // check from the start of the word
@@ -108,8 +130,8 @@ class App extends Component {
 					<TextList totalLength = {this.x.length} text = {this.state.textToType} textLength = {this.state.textBox.length} 
 						found = {this.state.found} pointer = {this.state.pointer} 
 						currentlyCorrect = {this.state.currentlyCorrect} author = {this.state.author} />
-					<input className = 'textInput' value = {this.state.textBox} onChange = {(event) => this.textChangeHandler(event)} autoFocus={true} maxLength = '22' placeholder={this.state.placeholder}/>
-					
+					<input id= 'inputText' className = 'textInput' value = {this.state.textBox} onChange = {(event) => this.textChangeHandler(event)} autoFocus={true} maxLength = '22' placeholder={this.state.placeholder}/>
+					<Reset reset = {this.resetApp} />
 					<WPM wordsPerMinute = {this.state.currentWPM} textBoxLength = {this.state.textBox.length} />
 				</div>
 			</div>
