@@ -1,0 +1,18 @@
+.countdown-div {
+	color: #2c3e50;
+	font-family: 'Roboto';
+  position:absolute;
+  top:30%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+.countdown {
+	font-size: 128px;
+	background-color: #c0392b;
+	padding: 15px 30px;
+}
+
+.hidden-true {
+	display: none;
+}

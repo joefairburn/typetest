@@ -100,3 +100,8 @@
 ::selection {
 	background: #3498db;
 }
+
+.hide-true {
+	display: none;
+	transition: display 0.2s;
+}
