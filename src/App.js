@@ -34,7 +34,7 @@ class App extends Component {
 		axios.get('https://talaikis.com/api/quotes/random/')
 		.then(response => {
 			this.x = response.data.quote;
-			if(this.x.length > 120) {
+			if(this.x.length > 110) {
 			this.getQuote();
 			} else {
 				this.setState({ 

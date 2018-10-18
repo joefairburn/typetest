@@ -35,8 +35,12 @@ const TextList = (props) => {
 	console.log(props.totalLength);
 	if(props.totalLength < 80) {
 		fontSize = '42px';
-	} else if(props.totalLength < 120) {
+	} else if(props.totalLength < 90) {
 		fontSize = '38px';
+	} else if(props.totalLength < 100) {
+		fontSize = '32px';
+	} else if(props.totalLength < 110) {
+		fontSize = '28px';
 	} else {
 		fontSize = '24px';
 	}
