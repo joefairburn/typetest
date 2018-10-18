@@ -40,7 +40,7 @@ const TextList = (props) => {
 	} else if(props.totalLength < 100) {
 		fontSize = '32px';
 	} else if(props.totalLength < 110) {
-		fontSize = '28px';
+		fontSize = '30px';
 	} else {
 		fontSize = '24px';
 	}

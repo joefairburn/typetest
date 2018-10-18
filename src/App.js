@@ -67,7 +67,11 @@ class App extends Component {
 			textBox: textBox, //set textbox to value entered in textbox, syncing textbox w/ state
 			currentlyCorrect: found
 		});
-		
+		if(pointer >= this.state.textToType.length -1) {
+			pointer = -1;
+			// DO SOMETHING HERE
+		}
+
 		if(textBox.length === 1 && pointer === 0) {
 			const currentTime = new Date();
 			this.timer = currentTime.getTime();
@@ -76,8 +80,8 @@ class App extends Component {
 		//when space + text previously found
 		if (textBox.split('')[word.length] === ' ' && this.state.found === true) {
 			this.totalLetters += word.length + 1;// +1 for space
+			console.log(pointer + ' ' + this.state.textToType.length)
 			pointer+=1;
-			this.tickSecond();
 			this.setState({
 				pointer: pointer, //increment counter
 				textBox: '', //reset text box
