@@ -23,8 +23,8 @@ class App extends Component {
 		currentWPM: 0,
 		author: '',
 		placeholder: 'Type the text above',
-		hideMain: true,
-		hideEndScreen: false,
+		hideMain: false,
+		hideEndScreen: true,
 		countdown: 0,
 		averageScores: [],
 		topScore: 0,
@@ -40,6 +40,7 @@ class App extends Component {
 		const minutes = seconds/60;
 		const WPM = Math.floor(words/minutes); //use either words or pointer
 		this.setState({currentWPM: WPM});
+		
 	}
 
 	resetApp = () => {
@@ -101,6 +102,10 @@ class App extends Component {
 		this.getQuote();
 		this.setState({ countdown: 3 });
 		this.countdownInterval = setInterval(() => this.countdown(), 1000);
+
+		localStorage.getItem('topScore') && this.setState({
+			topScore: localStorage.getItem('topScore')
+		});
 	}
 	componentWillUnmount() {
 		clearInterval(this.interval);
@@ -158,8 +163,9 @@ class App extends Component {
 			//new top score
 			if(this.state.topScore < this.finalWPM) {
 				this.setState({topScore: this.finalWPM});
+				localStorage.setItem('topScore', this.finalWPM);
 			}
-				
+
 			let average = (this.state.averageScores.reduce((a, b) => a + b, 0)) / this.state.averageScores.length;//calculate average
 			// DO SOMETHING HERE END 
 			this.setState({ 
@@ -189,9 +195,6 @@ class App extends Component {
 					<TextList totalLength = {this.x.length} text = {this.state.textToType} textLength = {this.state.textBox.length} 
 						found = {this.state.found} pointer = {this.state.pointer} 
 						currentlyCorrect = {this.state.currentlyCorrect} author = {this.state.author} />
-					
-			
-					
 					<input id= 'inputText' className = {'textInput mistake-' + this.state.incorrect} value = {this.state.textBox} onChange = {(event) => this.textChangeHandler(event)} autoFocus={true} maxLength = '22' placeholder={this.state.placeholder}/>
 					<Reset reset = {this.resetApp} />
 					<WPM wordsPerMinute = {this.state.currentWPM} textBoxLength = {this.state.textBox.length} />
