@@ -118,7 +118,7 @@ class App extends Component {
 			topScore: localStorage.getItem('topScore')
 		});
 
-		if(localStorage.getItem('historyWPM').length > 1) {
+		if(localStorage.getItem('historyWPM')) {
 			this.historyWPM = localStorage.getItem('historyWPM').split(',');
 		}
 
