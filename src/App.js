@@ -23,8 +23,8 @@ class App extends Component {
 		currentWPM: 0,
 		author: '',
 		placeholder: 'Type the text above',
-		hideMain: false,
-		hideEndScreen: true,
+		hideMain: true,
+		hideEndScreen: false,
 		countdown: 0,
 		averageScores: [],
 		topScore: 0,
@@ -184,7 +184,7 @@ class App extends Component {
     return (
 			<div>
 				<Navbar />
-				<EndScreen hide={this.state.hideEndScreen} wpm={this.finalWPM} startGame = {this.startGame} averageScores = {this.state.averageScores} averageScore = {this.state.averageScore} />
+				<EndScreen hide={this.state.hideEndScreen} wpm={this.finalWPM} startGame = {this.startGame} averageScores = {this.state.averageScores} averageScore = {this.state.averageScore} topScore ={this.state.topScore} />
 				<div className={'text-center content hide-' + this.state.hideMain}>
 					<TextList totalLength = {this.x.length} text = {this.state.textToType} textLength = {this.state.textBox.length} 
 						found = {this.state.found} pointer = {this.state.pointer} 
