@@ -1,0 +1,39 @@
+h4 {
+	text-align: right;
+	padding: 0;
+	margin:0;
+	margin-bottom: 20px;
+	font-size: 24px;
+	font-weight: 400;
+}
+
+ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.average-list {
+	text-decoration: none;
+	display: block;
+	font-family: Roboto;
+	margin-left: 2%;
+	font-size: 16px;
+	height: 50%;
+	color: #2c3e50;
+	text-align: left;
+	position: fixed;
+	top: 60%;
+} 
+
+.item-time {
+	text-align: right;
+	margin-bottom: 10px;
+	font-size: 24px;
+	font-weight: 400;
+}
+
+.item-time span {
+	font-size: 60%;
+	font-weight: 300;
+}

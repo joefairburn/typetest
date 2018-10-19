@@ -13,6 +13,7 @@ class App extends Component {
 	timer;
 	totalLetters = 0;
 	finalWPM = 0;
+	averageCount = 0;
 	state = {
 		textBox: '',
 		textToType: this.x.split(' '),
@@ -142,11 +143,20 @@ class App extends Component {
 			});
 			if(pointer === this.state.textToType.length -1) {
 			this.finalWPM = this.state.currentWPM;
+			let averageScores = this.state.averageScores;	
+			averageScores[this.averageCount] = this.finalWPM;
+			if(this.averageCount !== 4) {
+				this.averageCount += 1;
+			} else {
+				this.averageCount = 0;
+			}
 			// DO SOMETHING HERE END 
 			this.setState({ 
 				hideMain: true,
-				hideEndScreen: false
+				hideEndScreen: false,
+				averageScores: averageScores
 			});
+				console.log(this.state.averageScores);
 			}
 		}
 		else {
@@ -160,11 +170,14 @@ class App extends Component {
     return (
 			<div>
 				<Navbar />
-				<EndScreen hide={this.state.hideEndScreen} wpm={this.finalWPM} startGame = {this.startGame} />
+				<EndScreen hide={this.state.hideEndScreen} wpm={this.finalWPM} startGame = {this.startGame} averageScores = {this.state.averageScores} />
 				<div className={'text-center content hide-' + this.state.hideMain}>
 					<TextList totalLength = {this.x.length} text = {this.state.textToType} textLength = {this.state.textBox.length} 
 						found = {this.state.found} pointer = {this.state.pointer} 
 						currentlyCorrect = {this.state.currentlyCorrect} author = {this.state.author} />
+					
+			
+					
 					<input id= 'inputText' className = 'textInput' value = {this.state.textBox} onChange = {(event) => this.textChangeHandler(event)} autoFocus={true} maxLength = '22' placeholder={this.state.placeholder}/>
 					<Reset reset = {this.resetApp} />
 					<WPM wordsPerMinute = {this.state.currentWPM} textBoxLength = {this.state.textBox.length} />
