@@ -140,6 +140,7 @@ class App extends Component {
 			this.setState({
 				pointer: pointer, //increment counter
 				textBox: '', //reset text box
+				placeholder: '',
 			});
 		}
 		//set found to true or false for next iteration
