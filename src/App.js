@@ -117,6 +117,11 @@ class App extends Component {
 		localStorage.getItem('topScore') && this.setState({
 			topScore: localStorage.getItem('topScore')
 		});
+
+		if(localStorage.getItem('historyWPM').length > 1) {
+			this.historyWPM = localStorage.getItem('historyWPM').split(',');
+		}
+
 	}
 	componentWillUnmount() {
 		clearInterval(this.interval);
@@ -182,9 +187,8 @@ class App extends Component {
 					});
 					localStorage.setItem('topScore', this.finalWPM);
 				}
-				console.log(averageScores);
 				console.log(averageScoreLength);
-				let average = (averageScores.reduce((a, b) => a + b, 0)) / averageScoreLength; //calculate average
+				let average = (averageScores.reduce((a, b) => parseInt(a) + parseInt(b), 0)) / averageScoreLength; //calculate average
 				// DO SOMETHING HERE END 
 				this.setState({
 					hideMain: true,
@@ -193,7 +197,7 @@ class App extends Component {
 					averageScore: Math.round(average)
 				});
 				console.log(this.state.averageScore);
-
+				localStorage.setItem('historyWPM', this.historyWPM);
 			}
 
 		} else {
@@ -282,7 +286,6 @@ class App extends Component {
 			}
 			/> <
 			/div>
-
 			<
 			/div>
 		);
