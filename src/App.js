@@ -56,9 +56,9 @@ class App extends Component {
 			placeholder: 'Type the text above',
 			author: '',
 			textToType: [''],
-			countdown: 3
+			countdown: 1
 		});
-		this.countdownInterval = setInterval(() => this.countdown(), 1000);
+		//this.countdownInterval = setInterval(() => this.countdown(), 1000);
 	}
 
 	startGame = () => {
@@ -84,6 +84,7 @@ class App extends Component {
 					textToType: this.x.split(' '),
 					author: '- ' + response.data.author
 				});
+				this.setState({ countdown: 0 });
 			}
 			document.getElementById("inputText").focus();
 		});
@@ -100,8 +101,7 @@ class App extends Component {
 	componentDidMount() {
 		this.interval = setInterval(() => this.tickSecond(), 1000);
 		this.getQuote();
-		this.setState({ countdown: 3 });
-		this.countdownInterval = setInterval(() => this.countdown(), 1000);
+		this.setState({ countdown: 1 });
 
 		localStorage.getItem('topScore') && this.setState({
 			topScore: localStorage.getItem('topScore')
@@ -128,13 +128,10 @@ class App extends Component {
 				textBox: textBox, //set textbox to value entered in textbox, syncing textbox w/ state
 				currentlyCorrect: found
 			});
-			
-			
 		}
 		if(textBox.length === 1 && pointer === 0) {
 			const currentTime = new Date();
 			this.timer = currentTime.getTime();
-			this.setState({placeholder: ''});
 		}
 		//when space + text previously found
 		if (textBox.split('')[word.length] === ' ' && this.state.found === true) {
@@ -199,7 +196,7 @@ class App extends Component {
 					<Reset reset = {this.resetApp} />
 					<WPM wordsPerMinute = {this.state.currentWPM} textBoxLength = {this.state.textBox.length} />
 				</div>
-				<Countdown countdown = {this.state.countdown} />
+				
 			</div>
     );
   }
