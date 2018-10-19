@@ -154,6 +154,11 @@ class App extends Component {
 			} else {
 				this.averageCount = 0;
 			}
+
+			//new top score
+			if(this.state.topScore < this.finalWPM) {
+				this.setState({topScore: this.finalWPM});
+			}
 				
 			let average = (this.state.averageScores.reduce((a, b) => a + b, 0)) / this.state.averageScores.length;//calculate average
 			// DO SOMETHING HERE END 
