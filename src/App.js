@@ -76,12 +76,12 @@ class App extends Component {
 		axios.get('https://talaikis.com/api/quotes/random/')
 		.then(response => {
 			this.x = response.data.quote;
-			if(this.x.length > 200 || this.x.length < 90) {
+			if(this.x.length > 140 || this.x.length < 90) {
 			this.getQuote();
 			} else {
 				this.setState({ 
 					textToType: this.x.split(' '),
-					author: response.data.author
+					author: '- ' + response.data.author
 				});
 			}
 			document.getElementById("inputText").focus();
