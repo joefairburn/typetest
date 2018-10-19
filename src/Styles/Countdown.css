@@ -8,9 +8,10 @@
 }
 
 .countdown {
-	font-size: 128px;
+	font-size: 64px;
 	background-color: #c0392b;
-	padding: 15px 30px;
+	padding: 10px 25px;
+	border-radius: 20px;
 }
 
 .hidden-true {
