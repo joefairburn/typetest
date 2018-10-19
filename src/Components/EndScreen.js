@@ -9,7 +9,7 @@ const EndScreen = (props) => {
 				<p className='heading-5-wpm'>Words per Minute</p>
 				<button id="continue-button" className='continue' onClick={props.startGame}>Start Again</button>
 			</div>
-			<Averages averages = {props.averageScores} />
+			<Averages averages = {props.averageScores} averageScore = {props.averageScore} />
 		</div>
 		
 	);

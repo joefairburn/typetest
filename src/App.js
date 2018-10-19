@@ -27,7 +27,9 @@ class App extends Component {
 		hideEndScreen: true,
 		countdown: 0,
 		averageScores: [],
-		topScore: 0
+		topScore: 0,
+		averageScore: 0,
+		incorrect: false
 	};
 	
 	tickSecond() {
@@ -69,9 +71,6 @@ class App extends Component {
 
 	}
 	
-	saveScore = () => {
-		
-	}
 
 	getQuote = () => {
 		axios.get('https://talaikis.com/api/quotes/random/')
@@ -107,7 +106,11 @@ class App extends Component {
 		clearInterval(this.interval);
 	}
 
-	
+	mistakeMade = () => {
+		this.setState({incorrect: true});
+		console.log("HE");
+	}
+
 	//when text is input into textbox
 	textChangeHandler = (event) => {
 		let pointer = this.state.pointer;
@@ -115,12 +118,13 @@ class App extends Component {
 		let textBox = event.target.value;
 		let found = word.indexOf(textBox);
 		if(textBox === ' ') textBox = '';
-		
 		if(this.state.countdown === 0) {
 			this.setState({
 				textBox: textBox, //set textbox to value entered in textbox, syncing textbox w/ state
 				currentlyCorrect: found
 			});
+			
+			
 		}
 		if(textBox.length === 1 && pointer === 0) {
 			const currentTime = new Date();
@@ -150,14 +154,19 @@ class App extends Component {
 			} else {
 				this.averageCount = 0;
 			}
+				
+			let average = (this.state.averageScores.reduce((a, b) => a + b, 0)) / this.state.averageScores.length;//calculate average
 			// DO SOMETHING HERE END 
 			this.setState({ 
 				hideMain: true,
 				hideEndScreen: false,
-				averageScores: averageScores
+				averageScores: averageScores,
+				averageScore: Math.round(average)
 			});
-				console.log(this.state.averageScores);
+				console.log(this.state.averageScore);
+				
 			}
+		
 		}
 		else {
 			this.setState({
@@ -170,7 +179,7 @@ class App extends Component {
     return (
 			<div>
 				<Navbar />
-				<EndScreen hide={this.state.hideEndScreen} wpm={this.finalWPM} startGame = {this.startGame} averageScores = {this.state.averageScores} />
+				<EndScreen hide={this.state.hideEndScreen} wpm={this.finalWPM} startGame = {this.startGame} averageScores = {this.state.averageScores} averageScore = {this.state.averageScore} />
 				<div className={'text-center content hide-' + this.state.hideMain}>
 					<TextList totalLength = {this.x.length} text = {this.state.textToType} textLength = {this.state.textBox.length} 
 						found = {this.state.found} pointer = {this.state.pointer} 
@@ -178,7 +187,7 @@ class App extends Component {
 					
 			
 					
-					<input id= 'inputText' className = 'textInput' value = {this.state.textBox} onChange = {(event) => this.textChangeHandler(event)} autoFocus={true} maxLength = '22' placeholder={this.state.placeholder}/>
+					<input id= 'inputText' className = {'textInput mistake-' + this.state.incorrect} value = {this.state.textBox} onChange = {(event) => this.textChangeHandler(event)} autoFocus={true} maxLength = '22' placeholder={this.state.placeholder}/>
 					<Reset reset = {this.resetApp} />
 					<WPM wordsPerMinute = {this.state.currentWPM} textBoxLength = {this.state.textBox.length} />
 				</div>

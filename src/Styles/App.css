@@ -79,6 +79,10 @@
 	text-align: center;
 }
 
+.mistake-true {
+	background-color: black;
+}
+
 .textInput:focus {
 	outline: none;
 	border-color: #2980b9;

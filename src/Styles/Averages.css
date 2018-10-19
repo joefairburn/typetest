@@ -23,7 +23,8 @@ ul {
 	color: #2c3e50;
 	text-align: left;
 	position: fixed;
-	top: 60%;
+	top: 50%;
+	
 } 
 
 .item-time {
@@ -36,4 +37,9 @@ ul {
 .item-time span {
 	font-size: 60%;
 	font-weight: 300;
+}
+
+.item-time em {
+	font-weight: 300;
+	font-style:normal;
 }

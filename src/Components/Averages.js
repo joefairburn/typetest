@@ -8,7 +8,9 @@ const Averages = (props) => {
 	return(
 	<div className='average-list'>
 		<h4 className=''>Last 5 runs</h4>
-		<ul>{listAverages}</ul>
+		<ul>{listAverages}
+			<hr />
+			<li className='item-time'><em>Average: </em>{props.averageScore} <span className='wpm-average'>WPM</span></li></ul>
   </div>
 	);
 }
