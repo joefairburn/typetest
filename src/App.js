@@ -24,7 +24,9 @@ class App extends Component {
 		placeholder: 'Type the text above',
 		hideMain: false,
 		hideEndScreen: true,
-		countdown: 0
+		countdown: 0,
+		averageScores: [],
+		topScore: 0
 	};
 	
 	tickSecond() {
@@ -40,7 +42,6 @@ class App extends Component {
 	resetApp = () => {
 		this.getQuote();
 		clearInterval(this.countdownInterval);
-		document.getElementById("inputText").focus();
 		this.totalLetters = 0;
 		this.timer = 0;
 		this.setState({
@@ -55,17 +56,15 @@ class App extends Component {
 		});
 		this.countdownInterval = setInterval(() => this.countdown(), 1000);
 	}
-	
-	keyPressed = (event) => {
-		if(this.state.hideMain === true && this.state.hideEndScreen === false) {
+
+	startGame = () => {
+		if (this.state.hideMain === true && this.state.hideEndScreen === false) {
 			this.setState({
 				hideMain: false,
 				hideEndScreen: true
 			});
-			document.getElementById("inputText").focus();
 			this.resetApp();
 		}
-		
 
 	}
 	
@@ -85,7 +84,7 @@ class App extends Component {
 					author: response.data.author
 				});
 			}
-			console.log(response.data.author);
+			document.getElementById("inputText").focus();
 		});
 	}
 	
@@ -100,13 +99,11 @@ class App extends Component {
 	componentDidMount() {
 		this.interval = setInterval(() => this.tickSecond(), 1000);
 		this.getQuote();
-		document.addEventListener("keydown", this.keyPressed, false);
 		this.setState({ countdown: 3 });
 		this.countdownInterval = setInterval(() => this.countdown(), 1000);
 	}
 	componentWillUnmount() {
 		clearInterval(this.interval);
-		document.removeEventListener("keydown", this.keyPressed, false);
 	}
 
 	
@@ -138,20 +135,19 @@ class App extends Component {
 				textBox: '', //reset text box
 			});
 		}
-		if(pointer >= this.state.textToType.length) {
-			pointer = -1;
+		//set found to true or false for next iteration
+		if (found === 0 && textBox.length === word.length) { // check from the start of the word
+			this.setState({
+				found: true
+			});
+			if(pointer === this.state.textToType.length -1) {
 			this.finalWPM = this.state.currentWPM;
 			// DO SOMETHING HERE END 
 			this.setState({ 
 				hideMain: true,
 				hideEndScreen: false
 			});
-		}
-		//set found to true or false for next iteration
-		if (found === 0 && textBox.length === word.length) { // check from the start of the word
-			this.setState({
-				found: true
-			});
+			}
 		}
 		else {
 			this.setState({
@@ -164,7 +160,7 @@ class App extends Component {
     return (
 			<div>
 				<Navbar />
-				<EndScreen hide={this.state.hideEndScreen} wpm={this.finalWPM} keyPressed = {this.keyPressed} />
+				<EndScreen hide={this.state.hideEndScreen} wpm={this.finalWPM} startGame = {this.startGame} />
 				<div className={'text-center content hide-' + this.state.hideMain}>
 					<TextList totalLength = {this.x.length} text = {this.state.textToType} textLength = {this.state.textBox.length} 
 						found = {this.state.found} pointer = {this.state.pointer} 

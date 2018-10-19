@@ -31,8 +31,19 @@
 .continue {
 	margin-top: 30%;
 	font-size: 24px;
-	padding: 15px;
+	padding: 15px 30px;
 	border: 0 none #000;
 	background-color: #e67e22;
 	color: #ecf0f1;
+	border-radius: 50px;
+	transition: background-color 0.2s;	
+}
+
+.continue:focus {
+	outline: none;
+}
+
+.continue:hover {
+	cursor: pointer;
+	background-color: #d35400;
 }

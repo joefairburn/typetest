@@ -7,7 +7,7 @@
 	font-size: 24px;
 	border: 0 none #2980b9;
 	border-radius: 70px;
-	background: #2980b9;
+	background-color: #3498db;
 	color: #ecf0f1;
 	display: inline;
 	transition: background 0.2s;
@@ -16,7 +16,7 @@
 
 .reset-button:hover {
 	cursor: pointer;
-	background: #3498db;
+	background: #2980b9;
 }
 
 .reset-button:focus {
