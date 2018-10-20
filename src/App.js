@@ -117,7 +117,7 @@ class App extends Component {
 			topScore: localStorage.getItem('topScore')
 		});
 
-		if(localStorage.getItem('historyWPM')) {
+		if (localStorage.getItem('historyWPM')) {
 			this.historyWPM = localStorage.getItem('historyWPM').split(',');
 		}
 
@@ -170,7 +170,7 @@ class App extends Component {
 				this.finalWPM = this.state.currentWPM;
 				this.historyWPM.push(this.finalWPM);
 				let averageScoreLength = this.historyWPM;
-				if(this.historyWPM.length > 5) {
+				if (this.historyWPM.length > 5) {
 					averageScoreLength = 5;
 				}
 				let averageScores = this.historyWPM.slice(this.historyWPM.length - averageScoreLength, this.historyWPM.length);
@@ -208,88 +208,88 @@ class App extends Component {
 	}
 
 	render() {
-		return ( <div >
-			<
-			Navbar / >
-			<
-			EndScreen hide = {
-				this.state.hideEndScreen
-			}
-			wpm = {
-				this.finalWPM
-			}
-			startGame = {
-				this.startGame
-			}
-			averageScores = {
-				this.state.averageScores
-			}
-			averageScore = {
-				this.state.averageScore
-			}
-			topScore = {
-				this.state.topScore
-			}
-			/> <div className = {
+		return ( < div >
+				<
+				Navbar / >
+				<
+				EndScreen hide = {
+					this.state.hideEndScreen
+				}
+				wpm = {
+					this.finalWPM
+				}
+				startGame = {
+					this.startGame
+				}
+				averageScores = {
+					this.state.averageScores
+				}
+				averageScore = {
+					this.state.averageScore
+				}
+				topScore = {
+					this.state.topScore
+				}
+				/> <div className = {
 				'text-center content hide-' + this.state.hideMain
 			} >
 			<
 			TextList totalLength = {
 				this.x.length
 			}
-			text = {
-				this.state.textToType
-			}
-			textLength = {
-				this.state.textBox.length
-			}
-			found = {
-				this.state.found
-			}
-			pointer = {
-				this.state.pointer
-			}
-			currentlyCorrect = {
-				this.state.currentlyCorrect
-			}
-			author = {
-				this.state.author
-			}
-			/> <
-			input id = 'inputText'
-			className = {
-				'textInput mistake-' + this.state.incorrect
-			}
-			value = {
-				this.state.textBox
-			}
-			onChange = {
-				(event) => this.textChangeHandler(event)
-			}
-			autoFocus = {
-				true
-			}
-			maxLength = '22'
-			placeholder = {
-				this.state.placeholder
-			}
-			/> <
-			Reset reset = {
-				this.resetApp
-			}
-			/> <
-			WPM wordsPerMinute = {
-				this.state.currentWPM
-			}
-			textBoxLength = {
-				this.state.textBox.length
-			}
-			/> <
-			/div>
+		text = {
+			this.state.textToType
+		}
+		textLength = {
+			this.state.textBox.length
+		}
+		found = {
+			this.state.found
+		}
+		pointer = {
+			this.state.pointer
+		}
+		currentlyCorrect = {
+			this.state.currentlyCorrect
+		}
+		author = {
+			this.state.author
+		}
+		/> <
+		input id = 'inputText'
+		className = {
+			'textInput mistake-' + this.state.incorrect
+		}
+		value = {
+			this.state.textBox
+		}
+		onChange = {
+			(event) => this.textChangeHandler(event)
+		}
+		autoFocus = {
+			true
+		}
+		maxLength = '22'
+		placeholder = {
+			this.state.placeholder
+		}
+		/> <
+		Reset reset = {
+			this.resetApp
+		}
+		/> <
+		WPM wordsPerMinute = {
+			this.state.currentWPM
+		}
+		textBoxLength = {
+			this.state.textBox.length
+		}
+		/> < /
+		div >
 			<
 			/div>
-		);
-	}
+	);
+}
 }
 
 export default App;
