@@ -7,7 +7,6 @@ import Navbar from './Components/Navbar.js';
 import WPM from './Components/WPM.js';
 import Reset from './Components/Reset.js';
 import EndScreen from './Components/EndScreen.js';
-import Countdown from './Components/Countdown.js';
 import axios from 'axios';
 
 class App extends Component {
@@ -167,6 +166,7 @@ class App extends Component {
 				found: true
 			});
 			if (pointer === this.state.textToType.length - 1) {
+				this.tickSecond();
 				this.finalWPM = this.state.currentWPM;
 				this.historyWPM.push(this.finalWPM);
 				let averageScoreLength = this.historyWPM;
