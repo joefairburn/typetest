@@ -32,7 +32,7 @@ class App extends Component {
     incorrect: false
   };
 
-  tickSecond = () => {
+  changeWPM = () => {
     let newTime = new Date();
     newTime = newTime.getTime();
     const words = this.totalLetters / 5;
@@ -45,7 +45,7 @@ class App extends Component {
   }
 
   resetApp = () => {
-    this.getQuote();
+    this.changeQuote();
     clearInterval(this.countdownInterval);
     this.totalLetters = 0;
     this.timer = 0;
@@ -72,14 +72,16 @@ class App extends Component {
     }
   };
 
-  getQuote = () => {
+  changeQuote = () => {
     axios.get("https://favqs.com/api/qotd").then(response => {
       this.x = response.data.quote.body;
       if (this.x.length > 140 || this.x.length < 90) {
-        this.getQuote();
+        this.changeQuote();
+        return;
       } else {
         this.setState({
-          textToType: this.x.split(" "),
+          // textToType: this.x.split(" "),
+          textToType: ["test", "test"],
           author: "- " + response.data.quote.author
         });
         this.setState({
@@ -87,32 +89,37 @@ class App extends Component {
         });
       }
       document.getElementById("inputText").focus();
+    })
+    //handle error so application doesn't crash
+    .catch(function (error) {
+      // print error to console
+      console.log(error);
     });
   };
-  countdown = () => {
-    if (this.state.countdown !== 0) {
-      this.setState({
-        countdown: this.state.countdown - 1
-      });
-    } else {
-      clearInterval(this.countdownInterval);
-    }
-  };
+
+  // countdown = () => {
+  //   if (this.state.countdown !== 0) {
+  //     this.setState({
+  //       countdown: this.state.countdown - 1
+  //     });
+  //   } else {
+  //     clearInterval(this.countdownInterval);
+  //   }
+  // };
 
   componentDidMount() {
-    this.interval = setInterval(() => this.tickSecond(), 1000);
-    this.getQuote();
+    this.interval = setInterval(() => this.changeWPM(), 1000);
+    this.changeQuote();
     this.setState({
       countdown: 1
     });
     console.log(localStorage); 
-    localStorage.getItem("topScore") &&
-      this.setState({
-        topScore: localStorage.getItem("topScore")
-      });
+    this.setState({
+       topScore: localStorage.getItem("topScore")
+    });
 
     if (localStorage.getItem("historyWPM")) {
-      this.historyWPM = localStorage.getItem("historyWPM").split(",");
+      this.historyWPM = JSON.parse(localStorage.getItem("historyWPM"));
     }
   }
   componentWillUnmount() {
@@ -160,9 +167,10 @@ class App extends Component {
         found: true
       });
       if (pointer === this.state.textToType.length - 1) {
-        this.tickSecond();
+        this.changeWPM();
         this.finalWPM = this.state.currentWPM;
-        this.historyWPM.push(this.finalWPM);
+        this.historyWPM.push({ "x": this.historyWPM.length, "y": this.finalWPM.toString()});
+        console.log(this.historyWPM);
         let averageScoreLength = this.historyWPM;
         if (this.historyWPM.length > 5) {
           averageScoreLength = 5;
@@ -176,6 +184,7 @@ class App extends Component {
         } else {
           averageScoreLength = 5;
         }
+        console.log(averageScores);
 
         //new top score
         if (this.state.topScore < this.finalWPM) {
@@ -184,19 +193,25 @@ class App extends Component {
           });
           localStorage.setItem("topScore", this.finalWPM);
         }
-        console.log(averageScoreLength);
+        console.log(averageScores);
+        
+        let averageArray = [];
+        for(let i = 0; i < averageScores.length; i++) {
+          averageArray.push(averageScores[i].y);
+        }
+
         let average =
-          averageScores.reduce((a, b) => parseInt(a) + parseInt(b), 0) /
+          averageArray.reduce((a, b) => parseInt(a) + parseInt(b), 0) /
           averageScoreLength; //calculate average
-        // DO SOMETHING HERE END
+        // // DO SOMETHING HERE END
         this.setState({
           hideMain: true,
           hideEndScreen: false,
           averageScores: averageScores,
           averageScore: Math.round(average)
         });
-        console.log(this.state.averageScore);
-        localStorage.setItem("historyWPM", this.historyWPM);
+        localStorage.setItem("historyWPM", JSON.stringify(this.historyWPM));
+        console.log(localStorage.getItem("historyWPM"));
       }
     } else {
       this.setState({

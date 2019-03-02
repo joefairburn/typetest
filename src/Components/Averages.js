@@ -3,7 +3,8 @@ import '../Styles/Averages.css';
 const Averages = (props) => {
 	
 	const listAverages = props.averages.map((time, index) =>
-		<li className='item-time' key={index}>{time} <span className='wpm-average'>WPM</span></li>						
+		<li className='item-time' key={index}>{time.y} {console.log(time.y)}<span className='wpm-average'>WPM</span></li>	
+					
 	);
 	return(
 	<div className='average-list'>

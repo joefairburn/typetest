@@ -13,7 +13,6 @@ const EndScreen = (props) => {
 			<Averages averages = {props.averageScores} averageScore = {props.averageScore} />
 			<p className='topScore-text'>Highest WPM: <em className='topScore-end'>{props.topScore}</em></p>
 		</div>
-		
 	);
 }
 export default EndScreen;

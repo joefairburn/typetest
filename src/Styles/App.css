@@ -5,10 +5,11 @@
 	color: #2c3e50;
 	font-family: 'Georgia';
 	position: absolute;
-	top: 40%;
+	top: 15%;
 	left: 50%;
 	padding: 15px;
 	transform: translate(-50%, -50%);
+	height: 1vh;
 }
 
 
