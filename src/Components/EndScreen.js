@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import '../Styles/EndScreen.css';
 import Averages from'./Averages.js';
 const EndScreen = (props) => {

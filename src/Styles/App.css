@@ -4,11 +4,11 @@
 .content {
 	color: #2c3e50;
 	font-family: 'Georgia';
-  position:absolute;
-  top:40%;
-  left:50%;
-  padding:15px;
-  transform: translate(-50%,-50%);
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	padding: 15px;
+	transform: translate(-50%, -50%);
 }
 
 
@@ -30,14 +30,15 @@
 }
 
 .text-center {
-  text-align: center;
+	text-align: center;
 }
 
 .text-correct {
 	color: #16a085;
 }
 
-.text-current, .text-incorrect {
+.text-current,
+.text-incorrect {
 	border: 0 solid #bdc3c7;
 	border-radius: 5px;
 	background-color: #95a5a6;
@@ -52,11 +53,11 @@
 
 .text-current {
 	border-radius: 5px;
-	background-color: #95a5a6;
+	background-color: #acbcbd;
 }
 
 .author {
-	float:right;
+	float: right;
 	margin-right: 25px;
 	font-style: italic;
 }
