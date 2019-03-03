@@ -13,7 +13,11 @@ class App extends Component {
   totalLetters = 0;
   finalWPM = 0;
   averageCount = 0;
-  historyWPM = [];
+  historyWPM = [{
+    "id": "WPM",
+    "color": "hsl(238, 70%, 50%)",
+    "data": []
+    }];
   state = {
     textBox: "",
     textToType: this.x.split(" "),
@@ -42,6 +46,7 @@ class App extends Component {
     this.setState({
       currentWPM: WPM
     });
+    console.log(this.historyWPM[0].data);
   }
 
   resetApp = () => {
@@ -80,8 +85,8 @@ class App extends Component {
         return;
       } else {
         this.setState({
-          // textToType: this.x.split(" "),
-          textToType: ["test", "test"],
+          textToType: this.x.split(" "),
+          // textToType: ["test", "test"],
           author: "- " + response.data.quote.author
         });
         this.setState({
@@ -121,6 +126,7 @@ class App extends Component {
     if (localStorage.getItem("historyWPM")) {
       this.historyWPM = JSON.parse(localStorage.getItem("historyWPM"));
     }
+    console.log(this.historyWPM[0].data);
   }
   componentWillUnmount() {
     clearInterval(this.interval);
@@ -169,15 +175,15 @@ class App extends Component {
       if (pointer === this.state.textToType.length - 1) {
         this.changeWPM();
         this.finalWPM = this.state.currentWPM;
-        this.historyWPM.push({ "x": this.historyWPM.length, "y": this.finalWPM.toString()});
+        this.historyWPM[0].data.push({ "x": this.historyWPM[0].data.length.toString(), "y": this.finalWPM});
         console.log(this.historyWPM);
-        let averageScoreLength = this.historyWPM;
-        if (this.historyWPM.length > 5) {
+        let averageScoreLength = this.historyWPM[0].data.length;
+        if (this.historyWPM[0].data.length > 5) {
           averageScoreLength = 5;
         }
-        let averageScores = this.historyWPM.slice(
-          this.historyWPM.length - averageScoreLength,
-          this.historyWPM.length
+        let averageScores = this.historyWPM[0].data.slice(
+          this.historyWPM[0].data.length - averageScoreLength,
+          this.historyWPM[0].data.length
         );
         if (averageScores.length < 5) {
           averageScoreLength = averageScores.length;
@@ -228,6 +234,7 @@ class App extends Component {
           hide={this.state.hideEndScreen}
           wpm={this.finalWPM}
           startGame={this.startGame}
+          graphData={this.historyWPM}
           averageScores={this.state.averageScores}
           averageScore={this.state.averageScore}
           topScore={this.state.topScore}
@@ -250,6 +257,7 @@ class App extends Component {
             autoFocus={true}
             maxLength="22"
             placeholder={this.state.placeholder}
+            autocomplete="off"
           />{" "}
           <Reset reset={this.resetApp} />{" "}
           <WPM

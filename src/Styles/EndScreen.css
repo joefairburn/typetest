@@ -66,3 +66,16 @@
 	font-style: normal;
 
 }
+
+.bottom-right {
+	position: absolute;
+	top: 74%;
+	left: 83%;
+
+	transform: translate(-50%, -50%);
+}
+
+.graph {
+	height: 50%;
+	width: 45%;
+}

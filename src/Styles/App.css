@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
 
 
+body {
+	overflow: hidden;
+}
+
 .content {
 	color: #2c3e50;
 	font-family: 'Georgia';
@@ -9,7 +13,7 @@
 	left: 50%;
 	padding: 15px;
 	transform: translate(-50%, -50%);
-	height: 1vh;
+	max-height: 1vh;
 }
 
 

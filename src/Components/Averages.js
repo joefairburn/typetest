@@ -2,7 +2,7 @@ import React from 'react';
 import '../Styles/Averages.css';
 const Averages = (props) => {
 	
-	const listAverages = props.averages.map((time, index) =>
+	const listAverages = props.averageScores.map((time, index) =>
 		<li className='item-time' key={index}>{time.y} {console.log(time.y)}<span className='wpm-average'>WPM</span></li>	
 					
 	);
