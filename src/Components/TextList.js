@@ -12,6 +12,7 @@ const TextList = (props) => {
 	}
 	
 	const currentlyCorrect = () => {
+		console.log(props.currentlyCorrect);
 		if (props.currentlyCorrect === 0 || props.textLength === 0) {
 			return true;
 		} else {

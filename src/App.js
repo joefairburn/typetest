@@ -9,6 +9,7 @@ import axios from "axios";
 
 class App extends Component {
   x = "";
+  quotes = [];
   timer;
   totalLetters = 0;
   finalWPM = 0;
@@ -92,6 +93,9 @@ class App extends Component {
         this.setState({
           countdown: 0
         });
+        this.quotes.push({ "id": this.quotes.length, "qotd_id": response.data.quote.id, "quote": response.data.quote.body, "author": response.data.quote.author});
+        localStorage.setItem("quotes", JSON.stringify(this.quotes));
+        console.log(this.quotes);
       }
       document.getElementById("inputText").focus();
     })
@@ -118,13 +122,16 @@ class App extends Component {
     this.setState({
       countdown: 1
     });
-    console.log(localStorage); 
     this.setState({
        topScore: localStorage.getItem("topScore")
     });
 
     if (localStorage.getItem("historyWPM")) {
       this.historyWPM = JSON.parse(localStorage.getItem("historyWPM"));
+    }
+
+    if (localStorage.getItem("quotes")) {
+      this.quotes = JSON.parse(localStorage.getItem("quotes"));
     }
     console.log(this.historyWPM[0].data);
   }
@@ -133,10 +140,12 @@ class App extends Component {
   }
 
   mistakeMade = () => {
-    this.setState({
-      incorrect: true
-    });
-    console.log("HE");
+    if((this.state.currentlyCorrect === 0 || this.state.textBox.length === 0)) {
+      return false;
+    }
+    else {
+      return true;
+    }
   };
 
   //when text is input into textbox
@@ -152,6 +161,7 @@ class App extends Component {
         currentlyCorrect: found
       });
     }
+
     if (textBox.length === 1 && pointer === 0) {
       const currentTime = new Date();
       this.timer = currentTime.getTime();
@@ -166,6 +176,7 @@ class App extends Component {
         placeholder: ""
       });
     }
+    
     //set found to true or false for next iteration
     if (found === 0 && textBox.length === word.length) {
       // check from the start of the word
@@ -251,13 +262,13 @@ class App extends Component {
           />{" "}
           <input
             id="inputText"
-            className={"textInput mistake-" + this.state.incorrect}
+            className={"textInput mistake-" + this.mistakeMade()}
             value={this.state.textBox}
             onChange={event => this.textChangeHandler(event)}
             autoFocus={true}
             maxLength="22"
             placeholder={this.state.placeholder}
-            autocomplete="off"
+            autoComplete="off"
           />{" "}
           <Reset reset={this.resetApp} />{" "}
           <WPM
@@ -271,3 +282,5 @@ class App extends Component {
 }
 
 export default App;
+
+

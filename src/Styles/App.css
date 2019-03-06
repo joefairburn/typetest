@@ -80,20 +80,27 @@ body {
 	border-radius: 50px;
 	border: 2px solid #7f8c8d;
 	background-color: white;
-	transition: border-color 0.5s;
+	transition: border-color 0.2s;
 	font-family: Roboto;
 	text-align: center;
 }
-
-.mistake-true {
-	background-color: black;
-}
-
 .textInput:focus {
 	outline: none;
 	border-color: #2980b9;
 }
 
+
+.mistake-true {
+	color: white;
+	border-color: white;
+	background-color: #c0392b;
+}
+
+.mistake-true:focus {
+	color: white;
+	border-color: #c0392b;
+	opacity: 0.9;
+}
 .text-wpm {
 	margin-top: 32px;
 	font-size: 48px;
