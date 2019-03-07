@@ -6,6 +6,7 @@ import WPM from "./Components/WPM.js";
 import Reset from "./Components/Reset.js";
 import EndScreen from "./Components/EndScreen.js";
 import axios from "axios";
+import quotes from "./quotes.js";
 
 class App extends Component {
   x = "";
@@ -47,8 +48,8 @@ class App extends Component {
     this.setState({
       currentWPM: WPM
     });
-    console.log(this.historyWPM[0].data);
   }
+  
 
   resetApp = () => {
     this.changeQuote();
@@ -61,11 +62,11 @@ class App extends Component {
       textBox: "",
       found: false,
       placeholder: "Type the text above",
-      author: "",
-      textToType: [""],
-      countdown: 1
+      countdown: 0
     });
+    document.getElementById("inputText").focus();
     //this.countdownInterval = setInterval(() => this.countdown(), 1000);
+    
   };
 
   startGame = () => {
@@ -73,37 +74,38 @@ class App extends Component {
       this.setState({
         hideMain: false,
         hideEndScreen: true
-      });
-      this.resetApp();
+      },
+        () => {document.getElementById("inputText").focus();} //callback to focus after new data is rendered
+      );
     }
+    this.resetApp();
   };
-
+  
   changeQuote = () => {
-    axios.get("https://favqs.com/api/qotd").then(response => {
-      this.x = response.data.quote.body;
-      if (this.x.length > 140 || this.x.length < 90) {
-        this.changeQuote();
-        return;
-      } else {
-        this.setState({
-          textToType: this.x.split(" "),
-          // textToType: ["test", "test"],
-          author: "- " + response.data.quote.author
-        });
-        this.setState({
-          countdown: 0
-        });
-        this.quotes.push({ "id": this.quotes.length, "qotd_id": response.data.quote.id, "quote": response.data.quote.body, "author": response.data.quote.author});
-        localStorage.setItem("quotes", JSON.stringify(this.quotes));
-        console.log(this.quotes);
-      }
-      document.getElementById("inputText").focus();
-    })
-    //handle error so application doesn't crash
-    .catch(function (error) {
-      // print error to console
-      console.log(error);
+    // axios.get("https://favqs.com/api/qotd").then(response => {
+    //   console.log(response.data.quote.body);
+    //   if (this.x.length > 140 || this.x.length < 90) {
+    //   } else {
+    //     this.quotes.push({ "id": this.quotes.length, "qotd_id": response.data.quote.id, "quote": response.data.quote.body, "author": response.data.quote.author});
+    //     localStorage.setItem("quotes", JSON.stringify(this.quotes));
+    //     console.log(this.quotes);
+    //   }
+    // })
+    // //handle error so application doesn't crash
+    // .catch(function (error) {
+    //   // print error to console
+    //   console.log(error);
+    // });
+
+    let newQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    this.x = newQuote.quote;
+    this.setState({
+      textToType: this.x.split(" "),
+      // textToType: ["test", "test"],
+      author: "- " + newQuote.author,
+      countdown: 0
     });
+  
   };
 
   // countdown = () => {
@@ -120,7 +122,7 @@ class App extends Component {
     this.interval = setInterval(() => this.changeWPM(), 1000);
     this.changeQuote();
     this.setState({
-      countdown: 1
+      countdown: 0
     });
     this.setState({
        topScore: localStorage.getItem("topScore")
@@ -133,7 +135,6 @@ class App extends Component {
     if (localStorage.getItem("quotes")) {
       this.quotes = JSON.parse(localStorage.getItem("quotes"));
     }
-    console.log(this.historyWPM[0].data);
   }
   componentWillUnmount() {
     clearInterval(this.interval);
