@@ -19,6 +19,7 @@ class TypeTest extends Component {
     "color": "hsl(238, 70%, 50%)",
     "data": []
     }];
+  graphData = [];
   state = {
     textBox: "",
     textToType: this.x.split(" "),
@@ -65,7 +66,6 @@ class TypeTest extends Component {
     });
     document.getElementById("inputText").focus();
     //this.countdownInterval = setInterval(() => this.countdown(), 1000);
-    
   };
 
   startGame = () => {
@@ -100,7 +100,7 @@ class TypeTest extends Component {
     this.x = newQuote.quote;
     this.setState({
       textToType: this.x.split(" "),
-      // textToType: ["test", "test"],
+      //  textToType: ["test", "test"],
       author: "- " + newQuote.author,
       countdown: 0
     });
@@ -228,7 +228,11 @@ class TypeTest extends Component {
           averageScore: Math.round(average)
         });
         localStorage.setItem("historyWPM", JSON.stringify(this.historyWPM));
-        console.log(localStorage.getItem("historyWPM"));
+
+
+        let historyLength = JSON.parse(localStorage.getItem("historyWPM"))[0].data.length;
+        this.graphData = JSON.parse(localStorage.getItem("historyWPM"));
+        this.graphData[0].data = this.graphData[0].data.slice(historyLength - 20, historyLength);
       }
     } else {
       this.setState({
@@ -244,7 +248,7 @@ class TypeTest extends Component {
           hide={this.state.hideEndScreen}
           wpm={this.finalWPM}
           startGame={this.startGame}
-          graphData={this.historyWPM}
+          graphData={this.graphData}
           averageScores={this.state.averageScores}
           averageScore={this.state.averageScore}
           topScore={this.state.topScore}

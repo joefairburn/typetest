@@ -231,7 +231,7 @@ var quotes = [{
 }, {
     "id": 46,
     "qotd_id": 61900,
-    "quote": "Compound interest is the eighth wonder of the world.  He who understands it, earns it ... he who doesn't ... pays it.",
+    "quote": "Compound interest is the eighth wonder of the world. He who understands it, earns it ... he who doesn't ... pays it.",
     "author": "Albert Einstein"
 }, {
     "id": 47,
