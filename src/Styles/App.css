@@ -1,159 +1,165 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400');
-
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400");
 
 body {
-	overflow: hidden;
+  overflow: hidden;
 }
 
 .content {
-	color: #2c3e50;
-	font-family: 'Georgia';
-	position: absolute;
-	top: 15%;
-	left: 50%;
-	padding: 15px;
-	transform: translate(-50%, -50%);
-	max-height: 1vh;
+  color: #2c3e50;
+  font-family: "Georgia";
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  padding: 15px;
+  transform: translate(-50%, -50%);
+  max-height: 1vh;
 }
 
-
 .words {
-	white-space: pre-wrap;
-	overflow: hidden;
+  white-space: pre-wrap;
+  overflow: hidden;
 }
 
 .list {
-	font-size: 32px;
-	border: 0px none #bdc3c7;
-	border-radius: 5px;
-	white-space: pre-wrap;
-	width: 920px;
-	overflow: hidden;
-	padding: 0;
-	margin: 0;
-	user-select: none;
+  font-size: 32px;
+  border: 0px none #bdc3c7;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  width: 920px;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  user-select: none;
 }
 
 .text-center {
-	text-align: center;
+  text-align: center;
 }
 
 .text-correct {
-	color: #16a085;
+  color: #16a085;
 }
 
 .text-current,
 .text-incorrect {
-	border: 0 solid #bdc3c7;
-	border-radius: 5px;
-	background-color: #95a5a6;
-	margin: 0;
-	padding: 0;
+  border: 0 solid #bdc3c7;
+  border-radius: 5px;
+  background-color: #95a5a6;
+  margin: 0;
+  padding: 0;
 }
 
 .text-incorrect {
-	color: white;
-	background-color: #c0392b;
+  color: white;
+  background-color: #c0392b;
 }
 
 .text-current {
-	border-radius: 5px;
-	background-color: #acbcbd;
+  border-radius: 5px;
+  background-color: #acbcbd;
 }
 
 .author {
-	float: right;
-	margin-right: 25px;
-	font-style: italic;
+  float: right;
+  margin-right: 25px;
+  font-style: italic;
 }
 
 .quote {
-	height: 120px;
-	margin-bottom: 50px;
-	margin-top: 75px;
+  height: 120px;
+  margin-bottom: 50px;
+  margin-top: 75px;
 }
 
 .textInput {
-	padding: 0 10px;
-	height: 50px;
-	width: 400px;
-	font-size: 32px;
-	border-radius: 50px;
-	border: 2px solid #7f8c8d;
-	background-color: white;
-	transition: border-color 0.2s;
-	font-family: Roboto;
-	text-align: center;
+  padding: 0 10px;
+  height: 50px;
+  width: 400px;
+  font-size: 32px;
+  border-radius: 50px;
+  border: 2px solid #7f8c8d;
+  background-color: white;
+  transition: border-color 0.2s;
+  font-family: Roboto;
+  text-align: center;
 }
 .textInput:focus {
-	outline: none;
-	border-color: #2980b9;
+  outline: none;
+  border-color: #2980b9;
 }
 
-
 .mistake-true {
-	color: white;
-	border-color: white;
-	background-color: #c0392b;
+  color: white;
+  border-color: white;
+  background-color: #c0392b;
 }
 
 .mistake-true:focus {
-	color: white;
-	border-color: #c0392b;
-	opacity: 0.9;
+  color: white;
+  border-color: #c0392b;
+  opacity: 0.9;
 }
 .text-wpm {
-	margin-top: 32px;
-	font-size: 48px;
-	font-family: Roboto;
-	font-weight: 400;
-	text-align: center;
+  margin-top: 32px;
+  font-size: 48px;
+  font-family: Roboto;
+  font-weight: 400;
+  text-align: center;
 }
 
 .literal-wpm {
-	font-size: 24px;
-	font-weight: 300;
+  font-size: 24px;
+  font-weight: 300;
 }
 
 ::selection {
-	background: #3498db;
+  background: #3498db;
 }
 
 .hide-true {
-	display: none;
-	transition: display 0.2s;
+  display: none;
+  transition: display 0.2s;
 }
 
 .section-container {
-	margin: 0 5%;
+  margin: 0 5%;
 }
 
 .section-title {
-	border-bottom: 1px solid #999c9e;
-	font-family: Roboto;
-	font-weight: 300;
-	font-size: 32px;
-	margin-top: 40px;
+  border-bottom: 1px solid #999c9e;
+  font-family: Roboto;
+  font-weight: 300;
+  font-size: 32px;
+  margin-top: 40px;
 }
 
 .section-title strong {
-	font-weight: 400;
+  font-weight: 400;
 }
 
 .pencil-icon {
-	padding-left: 10px;
+  padding-left: 7px;
 }
 
 .input-name {
-	font-size: inherit;
-	background: none;
-	border:none;
+  font-size: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 .input-name:focus {
-	outline: none;
+  outline: none;
 }
 
 .hidden-true {
-	display: none;
+  display: none;
+}
+
+.hidden-false {
+  display: inline-block;
 }

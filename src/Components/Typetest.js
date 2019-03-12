@@ -14,11 +14,13 @@ class TypeTest extends Component {
   totalLetters = 0;
   finalWPM = 0;
   averageCount = 0;
-  historyWPM = [{
-    "id": "WPM",
-    "color": "hsl(238, 70%, 50%)",
-    "data": []
-    }];
+  historyWPM = [
+    {
+      id: "WPM",
+      color: "hsl(238, 70%, 50%)",
+      data: []
+    }
+  ];
   graphData = [];
   state = {
     textBox: "",
@@ -48,8 +50,7 @@ class TypeTest extends Component {
     this.setState({
       currentWPM: WPM
     });
-  }
-  
+  };
 
   resetApp = () => {
     this.changeQuote();
@@ -70,16 +71,19 @@ class TypeTest extends Component {
 
   startGame = () => {
     if (this.state.hideMain === true && this.state.hideEndScreen === false) {
-      this.setState({
-        hideMain: false,
-        hideEndScreen: true
-      },
-        () => {document.getElementById("inputText").focus();} //callback to focus after new data is rendered
+      this.setState(
+        {
+          hideMain: false,
+          hideEndScreen: true
+        },
+        () => {
+          document.getElementById("inputText").focus();
+        } //callback to focus after new data is rendered
       );
     }
     this.resetApp();
   };
-  
+
   changeQuote = () => {
     // axios.get("https://favqs.com/api/qotd").then(response => {
     //   console.log(response.data.quote.body);
@@ -104,7 +108,6 @@ class TypeTest extends Component {
       author: "- " + newQuote.author,
       countdown: 0
     });
-  
   };
 
   // countdown = () => {
@@ -124,7 +127,7 @@ class TypeTest extends Component {
       countdown: 0
     });
     this.setState({
-       topScore: localStorage.getItem("topScore")
+      topScore: localStorage.getItem("topScore")
     });
 
     if (localStorage.getItem("historyWPM")) {
@@ -140,10 +143,9 @@ class TypeTest extends Component {
   }
 
   mistakeMade = () => {
-    if((this.state.currentlyCorrect === 0 || this.state.textBox.length === 0)) {
+    if (this.state.currentlyCorrect === 0 || this.state.textBox.length === 0) {
       return false;
-    }
-    else {
+    } else {
       return true;
     }
   };
@@ -176,7 +178,7 @@ class TypeTest extends Component {
         placeholder: ""
       });
     }
-    
+
     //set found to true or false for next iteration
     if (found === 0 && textBox.length === word.length) {
       // check from the start of the word
@@ -186,7 +188,10 @@ class TypeTest extends Component {
       if (pointer === this.state.textToType.length - 1) {
         this.changeWPM();
         this.finalWPM = this.state.currentWPM;
-        this.historyWPM[0].data.push({ "x": this.historyWPM[0].data.length.toString(), "y": this.finalWPM});
+        this.historyWPM[0].data.push({
+          x: this.historyWPM[0].data.length.toString(),
+          y: this.finalWPM
+        });
         console.log(this.historyWPM);
         let averageScoreLength = this.historyWPM[0].data.length;
         if (this.historyWPM[0].data.length > 5) {
@@ -201,7 +206,6 @@ class TypeTest extends Component {
         } else {
           averageScoreLength = 5;
         }
-        console.log(averageScores);
 
         //new top score
         if (this.state.topScore < this.finalWPM) {
@@ -211,9 +215,9 @@ class TypeTest extends Component {
           localStorage.setItem("topScore", this.finalWPM);
         }
         console.log(averageScores);
-        
+
         let averageArray = [];
-        for(let i = 0; i < averageScores.length; i++) {
+        for (let i = 0; i < averageScores.length; i++) {
           averageArray.push(averageScores[i].y);
         }
 
@@ -231,10 +235,16 @@ class TypeTest extends Component {
 
         this.graphData = JSON.parse(localStorage.getItem("historyWPM"));
         let historyLength = this.graphData[0].data.length;
-        if(historyLength <= 20) {
-          this.graphData[0].data = this.graphData[0].data.slice(historyLength - historyLength, historyLength);
+        if (historyLength <= 20) {
+          this.graphData[0].data = this.graphData[0].data.slice(
+            historyLength - historyLength,
+            historyLength
+          );
         } else {
-          this.graphData[0].data = this.graphData[0].data.slice(historyLength - 20, historyLength);
+          this.graphData[0].data = this.graphData[0].data.slice(
+            historyLength - 20,
+            historyLength
+          );
         }
       }
     } else {
@@ -286,7 +296,4 @@ class TypeTest extends Component {
     );
   }
 }
-
 export default TypeTest;
-
-
