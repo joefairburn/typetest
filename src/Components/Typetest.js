@@ -100,7 +100,7 @@ class TypeTest extends Component {
     this.x = newQuote.quote;
     this.setState({
       textToType: this.x.split(" "),
-      //  textToType: ["test", "test"],
+      //textToType: ["test", "test"],
       author: "- " + newQuote.author,
       countdown: 0
     });
@@ -229,10 +229,13 @@ class TypeTest extends Component {
         });
         localStorage.setItem("historyWPM", JSON.stringify(this.historyWPM));
 
-
-        let historyLength = JSON.parse(localStorage.getItem("historyWPM"))[0].data.length;
         this.graphData = JSON.parse(localStorage.getItem("historyWPM"));
-        this.graphData[0].data = this.graphData[0].data.slice(historyLength - 20, historyLength);
+        let historyLength = this.graphData[0].data.length;
+        if(historyLength <= 20) {
+          this.graphData[0].data = this.graphData[0].data.slice(historyLength - historyLength, historyLength);
+        } else {
+          this.graphData[0].data = this.graphData[0].data.slice(historyLength - 20, historyLength);
+        }
       }
     } else {
       this.setState({

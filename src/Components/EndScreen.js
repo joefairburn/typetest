@@ -14,7 +14,6 @@ const EndScreen = (props) => {
 			</div>
 			<Averages averageScores = {props.averageScores} averageScore = {props.averageScore} />
 			<p className='topScore-text'>Highest WPM: <em className='topScore-end'>{props.topScore}</em></p>
-			{console.log(props.averageScores)}
 			<div className="bottom-right graph">
 				<ResponsiveLine
 			data={props.graphData}

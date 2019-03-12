@@ -123,3 +123,19 @@ body {
 	display: none;
 	transition: display 0.2s;
 }
+
+.section-container {
+	margin: 0 5%;
+}
+
+.section-title {
+	border-bottom: 1px solid #999c9e;
+	font-family: Roboto;
+	font-weight: 300;
+	font-size: 32px;
+	margin-top: 20px;
+}
+
+.section-title strong {
+	font-weight: 400;
+}
