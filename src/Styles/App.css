@@ -139,3 +139,21 @@ body {
 .section-title strong {
 	font-weight: 400;
 }
+
+.pencil-icon {
+	padding-left: 10px;
+}
+
+.input-name {
+	font-size: inherit;
+	background: none;
+	border:none;
+}
+
+.input-name:focus {
+	outline: none;
+}
+
+.hidden-true {
+	display: none;
+}
