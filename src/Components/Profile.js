@@ -7,12 +7,20 @@ class Profile extends Component {
 	componentWillMount = () => {
 		this.graphData = JSON.parse(localStorage.getItem("historyWPM"));
 		let historyLength = this.graphData[0].data.length;
-        this.graphData[0].data = this.graphData[0].data.slice(historyLength - 20, historyLength);
+		this.graphData[0].data = this.graphData[0].data.slice(historyLength - 20, historyLength);
+		if((localStorage.getItem("userData"))) {
+			localStorage.setItem("userData", 
+			JSON.stringify({
+				"name": "Joe",
+				
+			})
+			);
+		}
 	}
 	render() {
 		return(
 		<section className="section-container">
-			<header className="section-title">User: <strong>Joe Fairburn</strong></header>
+			<header className="section-title">User: <strong>John Smith</strong></header>
 			<div className="bottom-right graph">
 				<ResponsiveLine
 				data={this.graphData}
