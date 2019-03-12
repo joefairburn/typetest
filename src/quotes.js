@@ -1,4 +1,4 @@
-var quotes = [{
+const quotes = [{
     "id": 0,
     "qotd_id": 13934,
     "quote": "I went to medical school because I wanted to ask the big questions. Do we have a soul? Does God exist? What happens after death?",
