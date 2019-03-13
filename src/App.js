@@ -12,7 +12,7 @@ class App extends Component {
   render() {
     return (
       <MemoryRouter>
-        <div>
+        <div className="page-container">
           <Route component={Navbar}/>
           <Switch>
             <Route exact path="/" component={TypeTest}/>

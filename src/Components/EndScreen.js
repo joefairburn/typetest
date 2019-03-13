@@ -5,7 +5,7 @@ import { ResponsiveLine } from "@nivo/line";
 
 const EndScreen = props => {
   return (
-    <div className={"end-screen hide-" + props.hide}>
+    <section className={"end-screen hide-" + props.hide}>
       <div className="heading-wpm">
         <h1 className="h1-wpm">{props.wpm}</h1>
         <p className="heading-5-wpm">Words per Minute</p>
@@ -64,7 +64,7 @@ const EndScreen = props => {
           motionDamping={15}
         />
       </div>
-    </div>
+    </section>
   );
 };
 export default EndScreen;

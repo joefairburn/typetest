@@ -256,7 +256,7 @@ class TypeTest extends Component {
 
   render() {
     return (
-      <div>
+      <main>
         <EndScreen
           hide={this.state.hideEndScreen}
           wpm={this.finalWPM}
@@ -266,7 +266,7 @@ class TypeTest extends Component {
           averageScore={this.state.averageScore}
           topScore={this.state.topScore}
         />{" "}
-        <div className={"text-center content hide-" + this.state.hideMain}>
+        <section className={"typetest-main text-center content hide-" + this.state.hideMain}>
           <TextList
             totalLength={this.x.length}
             text={this.state.textToType}
@@ -291,8 +291,8 @@ class TypeTest extends Component {
             wordsPerMinute={this.state.currentWPM}
             textBoxLength={this.state.textBox.length}
           />{" "}
-        </div>
-      </div>
+        </section>
+      </main>
     );
   }
 }
