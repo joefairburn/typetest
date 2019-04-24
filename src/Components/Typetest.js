@@ -8,7 +8,7 @@ import EndScreen from "./EndScreen.js";
 import quotes from "../quotes.js";
 
 class TypeTest extends Component {
-  x = "";
+  quote = "";
   quotes = [];
   timer;
   totalLetters = 0;
@@ -24,7 +24,7 @@ class TypeTest extends Component {
   graphData = [];
   state = {
     textBox: "",
-    textToType: this.x.split(" "),
+    textToType: this.quote.split(" "),
     pointer: 0,
     found: false,
     currentlyCorrect: -1,
@@ -33,26 +33,28 @@ class TypeTest extends Component {
     placeholder: "Type the text above",
     hideMain: false,
     hideEndScreen: true,
-    countdown: 0,
     averageScores: [],
     topScore: 0,
     averageScore: 0,
     incorrect: false
   };
 
+  //Ran every second
   changeWPM = () => {
     let newTime = new Date();
-    newTime = newTime.getTime();
-    const words = this.totalLetters / 5;
+    newTime = newTime.getTime(); //set to current time
+    const words = this.totalLetters / 5; //divide by the average number of letters in a word
     const seconds = (newTime - this.timer) / 1000;
     const minutes = seconds / 60;
     const WPM = Math.floor(words / minutes); //use either words or pointer
+    //update WPM
     this.setState({
       currentWPM: WPM
     });
   };
 
   resetApp = () => {
+    //Reset and clear all variables being used
     this.changeQuote();
     clearInterval(this.countdownInterval);
     this.totalLetters = 0;
@@ -63,10 +65,8 @@ class TypeTest extends Component {
       textBox: "",
       found: false,
       placeholder: "Type the text above",
-      countdown: 0
     });
     document.getElementById("inputText").focus();
-    //this.countdownInterval = setInterval(() => this.countdown(), 1000);
   };
 
   startGame = () => {
@@ -76,15 +76,19 @@ class TypeTest extends Component {
           hideMain: false,
           hideEndScreen: true
         },
+        //Once main screen is shown the focus goes to the textbox
         () => {
           document.getElementById("inputText").focus();
-        } //callback to focus after new data is rendered
+        }
       );
     }
     this.resetApp();
   };
 
   changeQuote = () => {
+
+    //Used to get quotes from online rather than locally
+    //
     // axios.get("https://favqs.com/api/qotd").then(response => {
     //   console.log(response.data.quote.body);
     //   if (this.x.length > 140 || this.x.length < 90) {
@@ -100,32 +104,17 @@ class TypeTest extends Component {
     //   console.log(error);
     // });
 
-    let newQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    this.x = newQuote.quote;
+    let newQuote = quotes[Math.floor(Math.random() * quotes.length)]; //get random quote
+    this.quote = newQuote.quote;
     this.setState({
-      textToType: this.x.split(" "),
-      //textToType: ["test", "test"],
-      author: "- " + newQuote.author,
-      countdown: 0
+      textToType: this.quote.split(" "), //split quote into array seperated by a space
+      author: "- " + newQuote.author //set author
     });
   };
 
-  // countdown = () => {
-  //   if (this.state.countdown !== 0) {
-  //     this.setState({
-  //       countdown: this.state.countdown - 1
-  //     });
-  //   } else {
-  //     clearInterval(this.countdownInterval);
-  //   }
-  // };
-
   componentDidMount() {
-    this.interval = setInterval(() => this.changeWPM(), 1000);
-    this.changeQuote();
-    this.setState({
-      countdown: 0
-    });
+    this.interval = setInterval(() => this.changeWPM(), 1000); //Run change WPM every second
+    this.changeQuote(); //new quote
     this.setState({
       topScore: localStorage.getItem("topScore")
     });
@@ -143,6 +132,7 @@ class TypeTest extends Component {
   }
 
   mistakeMade = () => {
+    //check if word enetered is correct
     if (this.state.currentlyCorrect === 0 || this.state.textBox.length === 0) {
       return false;
     } else {
@@ -157,12 +147,10 @@ class TypeTest extends Component {
     let textBox = event.target.value;
     let found = word.indexOf(textBox);
     if (textBox === " ") textBox = "";
-    if (this.state.countdown === 0) {
       this.setState({
         textBox: textBox, //set textbox to value entered in textbox, syncing textbox w/ state
         currentlyCorrect: found
       });
-    }
 
     if (textBox.length === 1 && pointer === 0) {
       const currentTime = new Date();
@@ -185,18 +173,21 @@ class TypeTest extends Component {
       this.setState({
         found: true
       });
+      //When paragraph is complete
       if (pointer === this.state.textToType.length - 1) {
         this.changeWPM();
         this.finalWPM = this.state.currentWPM;
+        //Add new WPM to the list of previous WPM's
         this.historyWPM[0].data.push({
           x: this.historyWPM[0].data.length.toString(),
           y: this.finalWPM
         });
-        console.log(this.historyWPM);
         let averageScoreLength = this.historyWPM[0].data.length;
+        //Minimum value for averageScoreLength set to 5
         if (this.historyWPM[0].data.length > 5) {
           averageScoreLength = 5;
         }
+         //Get the last 5 (or less if length is less) last values
         let averageScores = this.historyWPM[0].data.slice(
           this.historyWPM[0].data.length - averageScoreLength,
           this.historyWPM[0].data.length
@@ -216,6 +207,7 @@ class TypeTest extends Component {
         }
         console.log(averageScores);
 
+        //put average scores into an array so they can be mapped
         let averageArray = [];
         for (let i = 0; i < averageScores.length; i++) {
           averageArray.push(averageScores[i].y);
@@ -224,17 +216,20 @@ class TypeTest extends Component {
         let average =
           averageArray.reduce((a, b) => parseInt(a) + parseInt(b), 0) /
           averageScoreLength; //calculate average
-        // // DO SOMETHING HERE END
+
+        //show main screen, update average scores state
         this.setState({
           hideMain: true,
           hideEndScreen: false,
           averageScores: averageScores,
           averageScore: Math.round(average)
         });
-        localStorage.setItem("historyWPM", JSON.stringify(this.historyWPM));
+        localStorage.setItem("historyWPM", JSON.stringify(this.historyWPM)); //set new scores to local storage
 
         this.graphData = JSON.parse(localStorage.getItem("historyWPM"));
-        let historyLength = this.graphData[0].data.length;
+        let historyLength = this.graphData[0].data.length; 
+
+        //Limit the data shown in the graph in end screen
         if (historyLength <= 20) {
           this.graphData[0].data = this.graphData[0].data.slice(
             historyLength - historyLength,
@@ -268,7 +263,7 @@ class TypeTest extends Component {
         />{" "}
         <section className={"typetest-main text-center content hide-" + this.state.hideMain}>
           <TextList
-            totalLength={this.x.length}
+            totalLength={this.quote.length}
             text={this.state.textToType}
             textLength={this.state.textBox.length}
             found={this.state.found}
