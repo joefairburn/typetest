@@ -242,12 +242,12 @@ body {
   font-weight: 400;
 	margin-top: 30px;
 	color: #2c3e50;
-	border-bottom: 2px solid rgba(44, 62, 80, 0);
+  
+  
 }
 
 .heading:hover {
-	/*	color: #95a5a6;*/
-	border-bottom: 2px solid rgba(44, 62, 80, 1);
+		color: black;
 }
 
 a {

@@ -66,7 +66,7 @@ class Profile extends Component {
       localStorage.setItem(
         "userData",
         JSON.stringify({
-          name: "Click to change me"
+          name: "User"
         })
       );
 
