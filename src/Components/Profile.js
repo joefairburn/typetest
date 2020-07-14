@@ -7,17 +7,18 @@ class Profile extends Component {
   historyWPM = {};
 
   state = {
-    userName: "Click to change me",
+    userName: "",
     isEditing: false,
-    size: 1
+    size: 1,
   };
 
   componentWillMount = () => {
-    
-    if(localStorage.getItem("historyWPM")) {
-    this.historyWPM = JSON.parse(localStorage.getItem("historyWPM"));
+    if (localStorage.getItem("historyWPM")) {
+      this.historyWPM = JSON.parse(localStorage.getItem("historyWPM"));
     } else {
-      this.historyWPM = [{"id":"WPM","color":"hsl(238, 70%, 50%)","data":[{"x":"0","y":"0"}]}]; //temporary graph data incase the user hasn't played yet
+      this.historyWPM = [
+        { id: "WPM", color: "hsl(238, 70%, 50%)", data: [{ x: "0", y: "0" }] },
+      ]; //temporary graph data incase the user hasn't played yet
     }
 
     let averageScoreLength = this.historyWPM[0].data.length;
@@ -26,13 +27,12 @@ class Profile extends Component {
     if (this.historyWPM[0].data.length > 5) {
       averageScoreLength = 5;
     }
-    
+
     //Get the last 5 (or less if length is less) last values
     let averageScores = this.historyWPM[0].data.slice(
       this.historyWPM[0].data.length - averageScoreLength,
       this.historyWPM[0].data.length
     );
-
 
     if (averageScores.length < 5) {
       averageScoreLength = averageScores.length;
@@ -46,13 +46,13 @@ class Profile extends Component {
     }
 
     let average =
-    averageArray.reduce((a, b) => parseInt(a) + parseInt(b), 0) /
-    averageScoreLength; //calculate average
+      averageArray.reduce((a, b) => parseInt(a) + parseInt(b), 0) /
+      averageScoreLength; //calculate average
 
     //set averages
     this.setState({
       averageScores: averageScores,
-      averageScore: Math.round(average)
+      averageScore: Math.round(average),
     });
 
     //limit graph to 20 results
@@ -66,35 +66,33 @@ class Profile extends Component {
       localStorage.setItem(
         "userData",
         JSON.stringify({
-          name: "User"
+          name: "User",
         })
       );
-
     } else {
       let parsedUserData = JSON.parse(localStorage.getItem("userData"));
       this.setState({
         userName: parsedUserData.name,
-        size: parsedUserData.length
+        size: parsedUserData.length,
       });
     }
-    
   };
 
-  componentDidMount = () => {
-    console.log(this.state.averageScores);
-  }
+  componentDidMount = () => {};
 
-  NameChange = e => {
-    this.setState({
-      userName: e.target.value,
-      size: e.target.value.size
-    });
+  NameChange = (e) => {
+    if (e.target.value.length < 15) {
+      this.setState({
+        userName: e.target.value,
+        size: e.target.value.length,
+      });
+    }
   };
 
   NameClick = () => {
     this.setState(
       {
-        isEditing: true
+        isEditing: true,
       },
       () => {
         document.getElementById("edit-name").focus();
@@ -104,14 +102,14 @@ class Profile extends Component {
 
   nameLostFocus = () => {
     this.setState({
-      isEditing: false
+      isEditing: false,
     });
     let newUserData = JSON.parse(localStorage.getItem("userData"));
     newUserData.name = this.state.userName;
     localStorage.setItem("userData", JSON.stringify(newUserData));
   };
 
-  handleKeyPressed = e => {
+  handleKeyPressed = (e) => {
     //submit name
     if (e.key === "Enter") {
       this.nameLostFocus();
@@ -122,7 +120,7 @@ class Profile extends Component {
     return (
       <main className="section-container">
         <header className="section-title">
-          User:{" "}
+          Name:{" "}
           <span onClick={this.NameClick}>
             {this.state.isEditing ? (
               <input
@@ -149,8 +147,8 @@ class Profile extends Component {
         </header>
         <section className="profile-stats">
           <Averages
-          averageScores={this.state.averageScores}
-          averageScore={this.state.averageScore}
+            averageScores={this.state.averageScores}
+            averageScore={this.state.averageScore}
           />
 
           <figure className="bottom-right graph">
@@ -160,16 +158,16 @@ class Profile extends Component {
                 top: 50,
                 right: 110,
                 bottom: 50,
-                left: 60
+                left: 60,
               }}
               xScale={{
-                type: "point"
+                type: "point",
               }}
               yScale={{
                 type: "linear",
                 stacked: true,
                 min: 0,
-                max: "auto"
+                max: "auto",
               }}
               axisBottom={null}
               axisLeft={{
@@ -179,7 +177,7 @@ class Profile extends Component {
                 tickRotation: 0,
                 legend: "Word per Minute",
                 legendOffset: -40,
-                legendPosition: "middle"
+                legendPosition: "middle",
               }}
               dotSize={10}
               dotColor="inherit:darker(0.3)"

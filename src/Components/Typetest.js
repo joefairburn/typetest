@@ -18,8 +18,8 @@ class TypeTest extends Component {
     {
       id: "WPM",
       color: "hsl(238, 70%, 50%)",
-      data: []
-    }
+      data: [],
+    },
   ];
   graphData = [];
   state = {
@@ -36,7 +36,7 @@ class TypeTest extends Component {
     averageScores: [],
     topScore: 0,
     averageScore: 0,
-    incorrect: false
+    incorrect: false,
   };
 
   //Ran every second
@@ -49,7 +49,7 @@ class TypeTest extends Component {
     const WPM = Math.floor(words / minutes); //use either words or pointer
     //update WPM
     this.setState({
-      currentWPM: WPM
+      currentWPM: WPM,
     });
   };
 
@@ -74,7 +74,7 @@ class TypeTest extends Component {
       this.setState(
         {
           hideMain: false,
-          hideEndScreen: true
+          hideEndScreen: true,
         },
         //Once main screen is shown the focus goes to the textbox
         () => {
@@ -86,7 +86,6 @@ class TypeTest extends Component {
   };
 
   changeQuote = () => {
-
     //Used to get quotes from online rather than locally
     //
     // axios.get("https://favqs.com/api/qotd").then(response => {
@@ -108,7 +107,7 @@ class TypeTest extends Component {
     this.quote = newQuote.quote;
     this.setState({
       textToType: this.quote.split(" "), //split quote into array seperated by a space
-      author: "- " + newQuote.author //set author
+      author: "- " + newQuote.author, //set author
     });
   };
 
@@ -116,7 +115,7 @@ class TypeTest extends Component {
     this.interval = setInterval(() => this.changeWPM(), 1000); //Run change WPM every second
     this.changeQuote(); //new quote
     this.setState({
-      topScore: localStorage.getItem("topScore")
+      topScore: localStorage.getItem("topScore"),
     });
 
     if (localStorage.getItem("historyWPM")) {
@@ -141,16 +140,16 @@ class TypeTest extends Component {
   };
 
   //when text is input into textbox
-  textChangeHandler = event => {
+  textChangeHandler = (event) => {
     let pointer = this.state.pointer;
     const word = this.state.textToType[pointer];
     let textBox = event.target.value;
     let found = word.indexOf(textBox);
     if (textBox === " ") textBox = "";
-      this.setState({
-        textBox: textBox, //set textbox to value entered in textbox, syncing textbox w/ state
-        currentlyCorrect: found
-      });
+    this.setState({
+      textBox: textBox, //set textbox to value entered in textbox, syncing textbox w/ state
+      currentlyCorrect: found,
+    });
 
     if (textBox.length === 1 && pointer === 0) {
       const currentTime = new Date();
@@ -163,7 +162,7 @@ class TypeTest extends Component {
       this.setState({
         pointer: pointer, //increment counter
         textBox: "", //reset text box
-        placeholder: ""
+        placeholder: "",
       });
     }
 
@@ -171,7 +170,7 @@ class TypeTest extends Component {
     if (found === 0 && textBox.length === word.length) {
       // check from the start of the word
       this.setState({
-        found: true
+        found: true,
       });
       //When paragraph is complete
       if (pointer === this.state.textToType.length - 1) {
@@ -180,14 +179,14 @@ class TypeTest extends Component {
         //Add new WPM to the list of previous WPM's
         this.historyWPM[0].data.push({
           x: this.historyWPM[0].data.length.toString(),
-          y: this.finalWPM
+          y: this.finalWPM,
         });
         let averageScoreLength = this.historyWPM[0].data.length;
         //Minimum value for averageScoreLength set to 5
         if (this.historyWPM[0].data.length > 5) {
           averageScoreLength = 5;
         }
-         //Get the last 5 (or less if length is less) last values
+        //Get the last 5 (or less if length is less) last values
         let averageScores = this.historyWPM[0].data.slice(
           this.historyWPM[0].data.length - averageScoreLength,
           this.historyWPM[0].data.length
@@ -201,11 +200,10 @@ class TypeTest extends Component {
         //new top score
         if (this.state.topScore < this.finalWPM) {
           this.setState({
-            topScore: this.finalWPM
+            topScore: this.finalWPM,
           });
           localStorage.setItem("topScore", this.finalWPM);
         }
-        console.log(averageScores);
 
         //put average scores into an array so they can be mapped
         let averageArray = [];
@@ -222,12 +220,12 @@ class TypeTest extends Component {
           hideMain: true,
           hideEndScreen: false,
           averageScores: averageScores,
-          averageScore: Math.round(average)
+          averageScore: Math.round(average),
         });
         localStorage.setItem("historyWPM", JSON.stringify(this.historyWPM)); //set new scores to local storage
 
         this.graphData = JSON.parse(localStorage.getItem("historyWPM"));
-        let historyLength = this.graphData[0].data.length; 
+        let historyLength = this.graphData[0].data.length;
 
         //Limit the data shown in the graph in end screen
         if (historyLength <= 20) {
@@ -244,7 +242,7 @@ class TypeTest extends Component {
       }
     } else {
       this.setState({
-        found: false
+        found: false,
       });
     }
   };
@@ -261,7 +259,11 @@ class TypeTest extends Component {
           averageScore={this.state.averageScore}
           topScore={this.state.topScore}
         />{" "}
-        <section className={"typetest-main text-center content hide-" + this.state.hideMain}>
+        <section
+          className={
+            "typetest-main text-center content hide-" + this.state.hideMain
+          }
+        >
           <TextList
             totalLength={this.quote.length}
             text={this.state.textToType}
@@ -271,17 +273,19 @@ class TypeTest extends Component {
             currentlyCorrect={this.state.currentlyCorrect}
             author={this.state.author}
           />{" "}
-          <input
-            id="inputText"
-            className={"textInput mistake-" + this.mistakeMade()}
-            value={this.state.textBox}
-            onChange={event => this.textChangeHandler(event)}
-            autoFocus={true}
-            maxLength="22"
-            placeholder={this.state.placeholder}
-            autoComplete="off"
-          />{" "}
-          <Reset reset={this.resetApp} />{" "}
+          <div className="lower-container">
+            <input
+              id="inputText"
+              className={"textInput mistake-" + this.mistakeMade()}
+              value={this.state.textBox}
+              onChange={(event) => this.textChangeHandler(event)}
+              autoFocus={true}
+              maxLength="22"
+              placeholder={this.state.placeholder}
+              autoComplete="off"
+            />{" "}
+            <Reset reset={this.resetApp} />
+          </div>
           <WPM
             wordsPerMinute={this.state.currentWPM}
             textBoxLength={this.state.textBox.length}

@@ -1,37 +1,37 @@
-@import url('https://fonts.googleapis.com/css?family=Quicksand:400,500');
+@import url("https://fonts.googleapis.com/css?family=Quicksand:400,500");
 
 .navbar {
-	padding-bottom: 72px;
-	border-bottom: 1px none #bdc3c7;
+  padding-bottom: 72px;
+  border-bottom: 1px none #bdc3c7;
 }
 
 .page-title {
-	font-family: 'Quicksand';
-	float: left;
-	display: inline;
-	margin-left: 2%;
-	font-size: 48px;
-	padding-top: 6px;
-	color: #2c3e50;
+  font-family: "Quicksand";
+  float: left;
+  display: inline;
+  margin-left: 2%;
+  font-size: 48px;
+  padding-top: 6px;
+  color: #2c3e50;
 }
 
 .heading {
-	float: right;
-	margin-right: 30px;
-	font-size: 18px;
-	text-align: center;
-	font-family: 'Quicksand';
-	margin-top: 30px;
-	color: #2c3e50;
-	border-bottom: 2px solid rgba(44, 62, 80, 0);
-	transition: border-bottom 0.5s;
+  float: right;
+  margin-right: 30px;
+  font-size: 18px;
+  text-align: center;
+  font-family: "Quicksand";
+  margin-top: 30px;
+  color: #2c3e50;
+  border-bottom: 2px solid rgba(44, 62, 80, 0);
+  transition: border-bottom 0.5s;
 }
 
 .heading:hover {
-	/*	color: #95a5a6;*/
-	border-bottom: 2px solid rgba(44, 62, 80, 1);
+  /*	color: #95a5a6;*/
+  border-bottom: 2px solid rgba(44, 62, 80, 1);
 }
 
 a {
-	text-decoration: none;
+  text-decoration: none;
 }

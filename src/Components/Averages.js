@@ -1,8 +1,8 @@
 import React from "react";
-const Averages = props => {
+const Averages = (props) => {
   const listAverages = props.averageScores.map((time, index) => (
     <li className="item-time" key={index}>
-      {time.y} {console.log(time.y)}
+      {time.y}
       <span className="wpm-average">WPM</span>
     </li>
   ));

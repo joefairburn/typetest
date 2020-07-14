@@ -1,8 +1,8 @@
 import React from "react";
 
-const TextList = props => {
+const TextList = (props) => {
   let fontSize = "32px";
-  const currentWord = index => {
+  const currentWord = (index) => {
     if (props.pointer === index) {
       return true;
     } else {
@@ -11,7 +11,6 @@ const TextList = props => {
   };
 
   const currentlyCorrect = () => {
-    console.log(props.currentlyCorrect);
     if (props.currentlyCorrect === 0 || props.textLength === 0) {
       return true;
     } else {
@@ -19,7 +18,7 @@ const TextList = props => {
     }
   };
 
-  const lengthBiggerThanZero = text => {
+  const lengthBiggerThanZero = (text) => {
     if (text > 0) {
       return true;
     } else {
@@ -27,7 +26,7 @@ const TextList = props => {
     }
   };
 
-  const wasCorrect = index => {
+  const wasCorrect = (index) => {
     if (index < props.pointer) {
       return true;
     }
@@ -46,7 +45,7 @@ const TextList = props => {
   }
 
   const listStyle = {
-    fontSize: fontSize
+    fontSize: fontSize,
   };
 
   const listItems = props.text.map((word, index) => (
@@ -80,7 +79,6 @@ const TextList = props => {
         {listItems}
       </p>
       <p className="author"> {props.author}</p>
-      <br />
     </div>
   );
 };
